@@ -251,25 +251,60 @@ def AgcrnEval(modelConfig,sharedConfig):
                         return float(file.read().strip())
 
 
-                y_pred=np.load(fileDictionary["predFile"] + ".npy")
-                y_true=np.load(fileDictionary["targetFile"] + ".npy")
 
+                # print(y_pred.shape)
+                # print(y_pred)
+                # print(y_true.shape)
+                # print(y_true)
+
+
+                # output_filename = "y_true_data.txt"
+
+                # with open(output_filename, 'w') as file:
+                #     # Write the shape of y_true
+                #     file.write(f"Shape: {y_true.shape}\n\n")
+
+                #     # Write the contents of y_true
+                #     for item in y_true:
+                #         file.write(f"{item}\n")
 
                 #per station metrics
-                for i in range(45):
-                    station_pred = y_pred[:, :, i, 0]
-                    station_true = y_true[:, :, i, 0]
-                    # print(station_true)
-                    print("Evaluating horizon:"+ str(horizon) + " split:" + str(k) + " for station:" + stations[i])
-                    # print(station_pred)
+                for attribute in range(2):
+                    y_pred=np.load(fileDictionary["predFile"] + ".npy")
+                    y_true=np.load(fileDictionary["targetFile"] + ".npy")
+                    for i in range(45):
+                        station_pred = y_pred[:, :, i, attribute]
+                        station_true = y_true[:, :, i, attribute]
+                        # print(station_true)
+                        print("Evaluating horizon:"+ str(horizon) + " split:" + str(k) + " for station:" + stations[i])
+                        # print(station_pred)
 
-                    rmse =  metrics.rmse(station_true, station_pred)
-                    mse = metrics.mse(station_true, station_pred)
-                    mae = metrics.mae(station_true, station_pred)
-                    smape = metrics.smape(station_true.flatten(), station_pred.flatten())
+                        rmse =  metrics.rmse(station_true, station_pred)
+                        mse = metrics.mse(station_true, station_pred)
+                        mae = metrics.mae(station_true, station_pred)
+                        smape = metrics.smape(station_true.flatten(), station_pred.flatten())
 
 
-                    filePath =fileDictionary['metricFile0'] +str(stations[i])
+                        filePath =fileDictionary['metricFile0'] + "attribute" + str(attribute)+ "/" +str(stations[i])
+                        if not os.path.exists(filePath):
+                            os.makedirs(filePath)
+
+                        with open(filePath + fileDictionary['metricFile1'], 'w') as file:
+                            file.write('This is the RMSE ' + str(rmse) + '\n')
+                            file.write('This is the MSE ' + str(mse) + '\n')
+                            file.write('This is the MAE ' + str(mae) + '\n')
+                            file.write('This is the SMAPE ' + str(smape) + '\n')
+
+
+                    #all station collective metrics
+                    y_true=y_true[:, :, :, attribute].flatten()
+                    y_pred=y_pred[:, :, :, attribute].flatten()
+                    rmse =  metrics.rmse(y_true, y_pred)
+                    mse = metrics.mse(y_true, y_pred)
+                    mae = metrics.mae(y_true, y_pred)
+                    smape = metrics.smape(y_true, y_pred)
+
+                    filePath =fileDictionary['metricFile0'] + "attribute" + str(attribute)+ "/" +"average"
                     if not os.path.exists(filePath):
                         os.makedirs(filePath)
 
@@ -278,25 +313,6 @@ def AgcrnEval(modelConfig,sharedConfig):
                         file.write('This is the MSE ' + str(mse) + '\n')
                         file.write('This is the MAE ' + str(mae) + '\n')
                         file.write('This is the SMAPE ' + str(smape) + '\n')
-
-
-                #all station collective metrics
-                y_true=y_true.flatten()
-                y_pred=y_pred.flatten()
-                rmse =  metrics.rmse(y_true, y_pred)
-                mse = metrics.mse(y_true, y_pred)
-                mae = metrics.mae(y_true, y_pred)
-                smape = metrics.smape(y_true, y_pred)
-
-                filePath =fileDictionary['metricFile0'] +"average"
-                if not os.path.exists(filePath):
-                    os.makedirs(filePath)
-
-                with open(filePath + fileDictionary['metricFile1'], 'w') as file:
-                    file.write('This is the RMSE ' + str(rmse) + '\n')
-                    file.write('This is the MSE ' + str(mse) + '\n')
-                    file.write('This is the MAE ' + str(mae) + '\n')
-                    file.write('This is the SMAPE ' + str(smape) + '\n')
 
 
 

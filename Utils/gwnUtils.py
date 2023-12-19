@@ -81,8 +81,10 @@ class NormScaler:
     def transform(self, data):
         return (data - self.min) / (self.max - self.min)
 
+    # def inverse_transform(self, data):
+    #     return data
     def inverse_transform(self, data):
-        return data
+        return (data * (self.max - self.min)) + self.min
 
 
 def sym_adj(adj):

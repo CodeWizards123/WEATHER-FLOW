@@ -230,7 +230,8 @@ class agcrnExecute(modelExecute):
     def prep_split_data(self, horizon, k):
         increments = self.sharedConfig['increment']['default']
         n_stations = self.sharedConfig['n_stations']['default']
-        self.train_loader, self.val_loader, self.test_loader, self.scaler = agcrnUtil.get_dataloader(horizon, k, 
+        predictor_attributes = self.modelConfig['predictor_attributes']['default']
+        self.train_loader, self.val_loader, self.test_loader, self.scaler = agcrnUtil.get_dataloader(predictor_attributes,horizon, k, 
                                                                     increments, n_stations, self.modelConfig,
                                                                     normalizer=self.modelConfig['normalizer']['default'],
                                                                     tod=self.modelConfig['tod']['default'], dow=False,
@@ -301,11 +302,37 @@ class agcrnExecute(modelExecute):
         y_true = []
         with torch.no_grad():
             for batch_idx, (data, target) in enumerate(data_loader):
+                # print("this is data")
+                # print(data)
+                # print("this is target")
+                # print(target)
                 data = data[..., :modelConfig['input_dim']['default']]
                 label = target[..., :modelConfig['output_dim']['default']]
-                output = model(data, target, teacher_forcing_ratio=0)
+                # print("this is target shape")
+                # print(target.shape)
+                # data = data
+                # label = target
+
+                shape = (5, 8, 45, 2)
+
+                # Generating a tensor of zeros with the given shape
+                zeros_tensor = torch.zeros(shape)
+                
+                output = model(data, zeros_tensor, teacher_forcing_ratio=0)
+                label = self.scaler.inverse_transform(label)
                 y_true.append(label)
+           
+                # print("this is ytrue")
+                # print(y_true)
+                # print("this is outut")
+                # print(output)
+                output = self.scaler.inverse_transform(output)
+               
                 y_pred.append(output)
+
+                # print("this is ypred")
+                # print(y_pred)
+
 
         y_true = torch.cat(y_true, dim=0)
         y_pred = torch.cat(y_pred, dim=0)

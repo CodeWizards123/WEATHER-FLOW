@@ -8,7 +8,7 @@ from sklearn.preprocessing import MinMaxScaler
 import Utils.gwnUtils as gwnUtils
 
 
-def Add_Window_Horizon(data, window, horizon, single):
+def Add_Window_Horizon(data, dataY, window, horizon, single):
     '''
     :param data: shape [B, ...]
     :param window:
@@ -38,7 +38,6 @@ def Add_Window_Horizon(data, window, horizon, single):
     #         index = index + 1
 
 
-
     if single:
         while index < end_index:
             X.append(data[index:index+window])
@@ -47,7 +46,8 @@ def Add_Window_Horizon(data, window, horizon, single):
     else:
         while index < end_index:
             X.append(data[index:index+window])
-            Y.append( data[index+window:index+window+horizon, :, -1:] )
+          
+            Y.append( dataY[index+window:index+window+horizon, :] )
             index = index + 1
 
     X = np.array(X)
@@ -170,33 +170,57 @@ def min_max(train, validation, test):
 
 
 
-def get_dataloader(horizon, k, increment, n_stations, agcrnConfig, normalizer = 'std', tod=False, dow=False, weather=False, single=True):
+def get_dataloader(predictor_attributes, horizon, k, increment, n_stations, agcrnConfig, normalizer = 'std', tod=False, dow=False, weather=False, single=True):
     #load raw st dataset
-    data = load_st_dataset(n_stations)        # B, N, D     
+    data, dataY = load_st_dataset(predictor_attributes, n_stations)        # B, N, D     
+
     
-    #train data prenormalised
+    #Normalizing X
     split = [increment[k], increment[k + 1], increment[k + 2] ]
     data_train = data[:split[0]]
     
-    #min/max of training set
     min_train = np.min(data_train, axis=(0,1))
     max_train = np.max(data_train, axis=(0,1))
 
-    #normalise all data
-    scaler = gwnUtils.NormScaler(min_train, max_train)
-    data = scaler.transform(data)
+    scalerX = gwnUtils.NormScaler(min_train, max_train)
+
+    data = scalerX.transform(data)
     
-    #split data
+    #Normalizing Y
+    split = [increment[k], increment[k + 1], increment[k + 2] ]
+    data_train = dataY[:split[0]]
+    
+    min_train = np.min(data_train, axis=(0,1))
+    max_train = np.max(data_train, axis=(0,1))
+
+    scalerY = gwnUtils.NormScaler(min_train, max_train)
+
+    dataY = scalerY.transform(dataY)
+
+
+    
+
+    #split data X
     split = [increment[k], increment[k + 1], increment[k + 2] ]
     data_train = data[:split[0]]
     data_val = data[split[0]:split[1]]
     data_test = data[split[1]:split[2]]
 
+    # print("This is testX data")
+    # print(data_test)
+
+    #split data Y
+    data_trainY = dataY[:split[0]]
+    data_valY = dataY[split[0]:split[1]]
+    data_testY = dataY[split[1]:split[2]]
+
+    # print("This is testY data")
+    # print(data_testY)
 
     #add time window
-    x_tra, y_tra = Add_Window_Horizon(data_train, agcrnConfig['lag']['default'], horizon, single)  
-    x_val, y_val = Add_Window_Horizon(data_val, agcrnConfig['lag']['default'], horizon, single)
-    x_test, y_test = Add_Window_Horizon(data_test, agcrnConfig['lag']['default'], horizon, single)
+    x_tra, y_tra = Add_Window_Horizon(data_train, data_trainY, agcrnConfig['lag']['default'], horizon, single)  
+    x_val, y_val = Add_Window_Horizon(data_val, data_valY, agcrnConfig['lag']['default'], horizon, single)
+    x_test, y_test = Add_Window_Horizon(data_test, data_testY, agcrnConfig['lag']['default'], horizon, single)
     print('Train: ', x_tra.shape, y_tra.shape)
     print('Val: ', x_val.shape, y_val.shape)
     print('Test: ', x_test.shape, y_test.shape)
@@ -207,7 +231,7 @@ def get_dataloader(horizon, k, increment, n_stations, agcrnConfig, normalizer = 
     else:
         val_dataloader = data_loader(x_val, y_val, agcrnConfig['batch_size']['default'], shuffle=False, drop_last=True)
     test_dataloader = data_loader(x_test, y_test, agcrnConfig['batch_size']['default'], shuffle=False, drop_last=False)
-    return train_dataloader, val_dataloader, test_dataloader, scaler #, min_train, max_train
+    return train_dataloader, val_dataloader, test_dataloader, scalerY #, min_train, max_train
 
 
 
@@ -219,22 +243,29 @@ import numpy as np
 import pandas as pd
 
 
-def load_st_dataset(n_stations):
+def load_st_dataset(predictor_attributes, n_stations):
     #output B, N, D
  
     data = pd.read_csv('DataNew/Graph Neural Network Data/Graph Station Data/graph.csv')
     data = data.drop(['StasName', 'DateT', 'Latitude', 'Longitude'], axis=1)  #added latitude and longitude
+    dataY = data[[col for col in data.columns if col in predictor_attributes]]
+
     data = np.array(data)
+    dataY = np.array(dataY)
+
 
     n_rows = data.shape[0]
     data = np.reshape(data, (int(n_rows/n_stations), n_stations, 6))
+    dataY = np.reshape(dataY, (int(n_rows/n_stations), n_stations, len(predictor_attributes)))
 
-    if len(data.shape) == 2:
-        data = np.expand_dims(data, axis=-1)
+
+    # if len(data.shape) == 2:
+    #     print("juice")
+    #     data = np.expand_dims(data, axis=-1)
 
     print("Data Shape:   " + str(data.shape))
-
-    return data
+    # print(data)
+    return data, dataY
 
 
 #logger
