@@ -64,14 +64,14 @@ eval_ast_gcn:
   help: whether to report final ASTGCN metrics
 eval_clcrn:
   type: bool
-  default: true
+  default: false
   help: whether to report final CLCRN metrics
 ############################ General data configurations ############################
 increment: 
   type: int[]
   #all splits  (set num_split=6):
   # default: [8760, 17520, 26280, 35040, 43800, 52560, 61320, 70080] 
-  default: [79750, 96839, 113929]
+  default: [1000, 1500, 2000]
   help:  (from davidson) List of points to split data in train, validation, and test sets for walk-forward validation. The first marker, 
     8784 is one year's worth of data, the next step is 3 months of data, and the following step is also 3 months of 
     data, resulting in rolling walk-forward validation where the train size increases each increment, with the 

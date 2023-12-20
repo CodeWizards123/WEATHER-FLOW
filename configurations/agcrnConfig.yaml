@@ -76,7 +76,7 @@ batch_size:
   help: size of batches for training
 epochs:
   type: int
-  default: 6
+  default: 3
   help: number of training epochs
 lr_init:
   type: float

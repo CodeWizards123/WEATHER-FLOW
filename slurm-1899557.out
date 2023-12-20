@@ -1,0 +1,18 @@
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "en_ZA.utf-8"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
+/var/tmp/slurmd.spool/job1899557/slurm_script: line 8: nvcc: command not found
+Loading python/miniconda3-py38-usr-A
+  Loading requirement: compilers/gcc820 mpi/openmpi-4.0.1
+Traceback (most recent call last):
+  File "runAGCRN.py", line 3, in <module>
+    from Execute.agcrnExecute import agcrnExecute
+  File "/home/gbxade002/WEATHER-FLOW/Execute/agcrnExecute.py", line 63
+    torch.cuda.set_device(cuda:0)
+                              ^
+SyntaxError: invalid syntax

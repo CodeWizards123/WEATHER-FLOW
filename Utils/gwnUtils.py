@@ -66,6 +66,7 @@ class StandardScaler:
         return (data - self.mean) / self.std
 
     def inverse_transform(self, data):
+        data = data.cpu()
         return (data * self.std) + self.mean
 
 
@@ -84,6 +85,7 @@ class NormScaler:
     # def inverse_transform(self, data):
     #     return data
     def inverse_transform(self, data):
+        data = data.cpu()
         return (data * (self.max - self.min)) + self.min
 
 

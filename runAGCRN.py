@@ -11,8 +11,8 @@ with open('configurations/sharedConfig.yaml', 'r') as file:
     sharedConfig = yaml.safe_load(file)
 
 
-agcrn_hpo = agcrnHPO(sharedConfig, agcrnConfig)
-agcrn_hpo.hpo() 
+#agcrn_hpo = agcrnHPO(sharedConfig, agcrnConfig)
+#agcrn_hpo.hpo() 
 
 agcrn_trainer = agcrnExecute(sharedConfig, agcrnConfig)
 agcrn_trainer.execute() 
