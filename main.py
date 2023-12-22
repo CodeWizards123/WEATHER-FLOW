@@ -10,7 +10,7 @@ from Execute.astgcnExecute import astgcnExecute
 from HPO.astgcnHPO import astgcnHPO as astgcnHPO
 import Plots.plotter as plotter 
 from Plots import lossVStime , clcrnPlotter
-import Visualisations.visualise as visualise
+# import Visualisations.visualise as visualise
 import Logs.Evaluation as Evaluation
 from HPO.agcrnHPO import agcrnHPO
 
@@ -138,13 +138,13 @@ def main():
     if sharedConfig['eval_clcrn']['default'] or args.mode == configOptions[13]:
         clcrnConfig = getSpecificConfig('clcrn')
         Evaluation.ClcrnEval(sharedConfig,clcrnConfig)
-        clcrnPlotter.create('CLCRN',sharedConfig)
-        horizons = sharedConfig['horizons']['default']
-        for h in horizons:
-            lossVStime.visualize_results(h, sharedConfig['stations']['default'])
-        complete = True
+        # clcrnPlotter.create('CLCRN',sharedConfig)
+        # horizons = sharedConfig['horizons']['default']
+        # for h in horizons:
+        #     lossVStime.visualize_results(h, sharedConfig['stations']['default'])
+        # complete = True
 
-# ############ Visualisations #############
+############## Visualisations #############
     if sharedConfig['vis']['default'] or args.mode == configOptions[8]:
         visualise.plot(sharedConfig)
 

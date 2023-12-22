@@ -47,5 +47,7 @@ def masked_smape_loss(y_pred, y_true):
     # loss = loss  * mask
 
     loss[loss != loss] = 0
+    print("-------------------------------------------------------------")
+    print(loss)
     
     return loss.mean()

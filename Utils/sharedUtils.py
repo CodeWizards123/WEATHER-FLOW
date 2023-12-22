@@ -10,7 +10,7 @@ def create_file_if_not_exists(file_path):
         open(file_path, 'w').close()
 
         
-def sliding_window(df, lag, forecast, split, set, n_stations):
+def sliding_window(df, lag, forecast, split, set, n_stations,num_output_dim,f_variables):
     """
     Converts array to times-series input-output sliding-window pairs.
     Parameters:
@@ -22,6 +22,10 @@ def sliding_window(df, lag, forecast, split, set, n_stations):
     Returns:
         x, y - returns x input and y output
     """
+    weatherElements = ['Pressure' ,'WindDir' ,'WindSpeed' ,'Humidity' ,'Rain','Temperature']
+    for element in f_variables:
+        weatherElements.remove(element)
+
     if set == 0:
         samples = int(split[0] / n_stations)
     if set == 1:
@@ -29,13 +33,14 @@ def sliding_window(df, lag, forecast, split, set, n_stations):
     if set == 2:
         samples = int(split[2] / 45 - split[1] / n_stations)
 
-
-    dfy = df.drop(['Rain', 'Humidity', 'Pressure', 'WindSpeed', 'WindDir'], axis=1)
+    print(weatherElements)
+    dfy = df.drop(weatherElements, axis=1)
+    # dfy = df.drop(['Rain', 'Humidity', 'Pressure', 'WindSpeed', 'WindDir'], axis=1)
     stations = n_stations
     features = 6
 
     df = df.values.reshape(samples, stations, features)
-    dfy = dfy.values.reshape(samples, stations, 1)
+    dfy = dfy.values.reshape(samples, stations, num_output_dim)
 
     x_offsets = np.sort(np.concatenate((np.arange(-(lag - 1), 1, 1),)))
     y_offsets = np.sort(np.arange(1, (forecast + 1), 1))
@@ -45,7 +50,7 @@ def sliding_window(df, lag, forecast, split, set, n_stations):
     data = np.concatenate([data], axis=-1)
 
     datay = np.expand_dims(dfy, axis=-1)
-    datay = datay.reshape(samples, 1, stations, 1)
+    datay = datay.reshape(samples, 1, stations, num_output_dim)
     datay = np.concatenate([datay], axis=-1)
 
     x, y = [], []

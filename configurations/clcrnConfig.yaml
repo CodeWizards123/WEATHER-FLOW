@@ -17,7 +17,7 @@ num_nodes:
   help: Number of weather stations
 layer_num:
   type: int
-  default: 1
+  default: 2
   help: Number of layers in the model
 rnn_units:
   type: int
@@ -43,6 +43,11 @@ hidden_units:
   type: int
   default: 16
   help: Dimensions at location
+forecast_variable:
+  type: [str]
+  # default: ['Pressure' ,'WindDir' ,'WindSpeed' ,'Humidity' ,'Rain','Temperature']
+  default: ['Temperature']
+  help: weather variable that will be forecasted by the model in the order  Pressure,WindDir,WindSpeed,Humidity,Rain,Temperature
 
 ################################################# Data Configuration ###############################################
 data:
@@ -74,7 +79,7 @@ test_batch_size:
   help: Length of output sequence
 cl_decay_steps:
   type: int
-  default: 2
+  default: 2000
   help: Number of decay steps
 # horizon:
 #   type: int[]
@@ -83,6 +88,11 @@ cl_decay_steps:
 steps:
   type: int[]
   default: [6]
+  # - 10
+  # - 20
+  # - 30
+  # - 40
+  # - 50
   help: Prediction horizon
 input_dim:
   type: int
@@ -166,7 +176,7 @@ min_learning_rate:
   help: Minimum learning rate
 epochs:
   type: int
-  default: 30
+  default: 40
   help: Number of training epochs
 test_every_n_epochs:
   type: int

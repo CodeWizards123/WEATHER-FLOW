@@ -413,50 +413,62 @@ def ClcrnEval(sharedConfig,modelConfig):
         h =  sharedConfig['horizons']['default']
 
         log_dir = get_log_dir(sharedConfig,modelConfig)
-        
-        true_file = '{}/actuals.pkl'.format(log_dir,h)
-        predict_file = '{}/predictions.pkl'.format(log_dir,h)
-        # Open the pickle file for reading (rb mode)
-        with open(true_file, 'rb') as f:
-            # Load the content of the pickle file
-            trueVals = pickle.load(f)
-        with open(predict_file, 'rb') as f:
-            # Load the content of the pickle file
-            predVals = pickle.load(f)
 
-        print("Average smape value for horizon {}".format(h[0]))
-        print(masked_smape_loss(torch.tensor(predVals['y_preds']),torch.tensor(trueVals['y_trues'])))
+        elements = modelConfig['forecast_variable']['default']
+        c = 0
+        for element in elements:
+            true_file = '{}/{}/test/actualsNorm.pkl'.format(log_dir,element)
+            predict_file = '{}/{}/test/predictionsNorm.pkl'.format(log_dir,element)
+            # Open the pickle file for reading (rb mode)
+            with open(true_file, 'rb') as f:
+                # Load the content of the pickle file
+                trueVals = pickle.load(f)
+            with open(predict_file, 'rb') as f:
+                # Load the content of the pickle file
+                predVals = pickle.load(f)
 
-        trues = torch.tensor(trueVals['y_trues'])
-        preds = torch.tensor(predVals['y_preds'])
-        smape = 0
-        mse = 0
-        
-        fpath = '{}/stationScore_{}.txt'.format(modelConfig['results_dir']['default'],h[0])
-        with open(fpath, "w") as f:
-            f.write("Metrics scores at each station  \n")
-            for i in range(modelConfig['num_nodes']['default']):
-                t = trues[:,:,:i+1,:]
-                p = preds[:,:,:i+1,:]
-                score = masked_smape_loss(p,t)
-                mscore = masked_mse_loss(p,t)
-                smape = smape + score
-                mse = mse + mscore
+            print("Average smape value for weather element {} for the horizon {}".format(element,h[0]))
+            # print(masked_smape_loss(torch.tensor(predVals['y_preds']),torch.tensor(trueVals['y_trues'])))
 
+            trues = torch.tensor(trueVals['y_trues'])
+            preds = torch.tensor(predVals['y_preds'])
+            smape = 0
+            mse = 0
+            
+            fpath = '{}/{}/stationScore_{}.txt'.format(modelConfig['results_dir']['default'],element,h[0])
+            # os.makedirs(fpath, exist_ok=True)
+            # Create parent directories if they don't exist
+            os.makedirs(os.path.dirname(fpath), exist_ok=True)
+            with open(fpath, "w") as f:
+                f.write("Metrics scores at each station  \n")
+                for i in range(modelConfig['num_nodes']['default']):
+
+                    t = trues[:,:,i:i+1,c:c+1]
+                    p = preds[:,:,i:i+1,c:c+1]
+                    score = masked_smape_loss(p,t)
+                    mscore = masked_mse_loss(p,t)
+                    smape = smape + score
+                    mse = mse + mscore
+                    # if (i == 42):
+                    #     print(score)
+                    # print(t)
+                    # print(p)
+                    
+                    smapeData = 'SMAPE score for weather element {} at station {} : {} \n'.format(element,i+1,score.item())
+                    mseData = 'MSE score for weather element {} at station {} : {} \n'.format(element,i+1,mscore.item())
                 
-                smapeData = 'SMAPE score at station {} : {} \n'.format(i+1,score.item())
-                mseData = 'MSE score at station {} : {} \n'.format(i+1,mscore.item())
-               
-                f.write(smapeData)
-                f.write(mseData)
+                    f.write(smapeData)
+                    f.write(mseData)
 
-                print(smapeData)
+                    print(smapeData)
 
-            f.write("Average SMAPE maually calculated: {} \n".format(smape/45))
-            f.write("Average MSE maually calculated: {}".format(mse/45))
+                f.write("Average SMAPE maually calculated: {} \n".format(smape/45))
+                f.write("Average MSE maually calculated: {}".format(mse/45))
+                
+            # c= c + 1
+            print("Average SMAPE maually calculated: {}".format(smape/45))
+            print("Average MSE maually calculated: {}".format(mse/45))        
 
-        print("Average SMAPE maually calculated: {}".format(smape/45))
-        print("Average MSE maually calculated: {}".format(mse/45))        
 
 def get_log_dir(sharedConfig,modelConfig):
         log_dir = Path(modelConfig['log_dir']['default'])/'{} Hour Forecast'.format(sharedConfig['horizons']['default'][0])

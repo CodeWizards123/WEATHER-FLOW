@@ -31,14 +31,27 @@ class NormScaler:
     def transform(self, data):
         return (data - self.min) / (self.max - self.min)
 
-    def inverse_transform(self, data):
-        return data
+    def inverse_transform(self, data,variables):
+        # return data
         # print("----------------------------------------")
-        # print(data.shape)
-        max = self.max.values
-        max = max.reshape((1, 1, 1, 6))
-        min = self.min.values
-        min = min.reshape((1, 1, 1, 6))
+        # print(self.max)
+        # max = self.max[variable].values
+        
+        max = {key: value for key, value in self.max.items() if key in variables}
+        max = list(max.values())
+        min = {key: value for key, value in self.min.items() if key in variables}
+        min = list(min.values())
+
+            # Convert to NumPy arrays
+        max = np.array(max)
+        min = np.array(min)
+        # max = self.max[variables]
+        # # max = type(self.max)
+        # print(variable)
+        # print(max)
+        # # max = max.reshape((1, 1, 1, 6))
+        # min = self.min[variables]
+        # # min = min.reshape((1, 1, 1, 6))
         return data * (max - min) + min
 
 def latlon2xyz(lat,lon):
@@ -49,7 +62,7 @@ def latlon2xyz(lat,lon):
     z= np.sin(lat)
     return x,y,z
 
-def sliding_window(df, lag, horizon, split, numOfStations,tData,lon,lat,scaler):
+def sliding_window(df, lag, horizon, split, numOfStations,tData,lon,lat,message,weatherElements):
     """
     Converts array to times-series input-output sliding-window pairs.
     Parameters:
@@ -63,17 +76,17 @@ def sliding_window(df, lag, horizon, split, numOfStations,tData,lon,lat,scaler):
     """
     samples = int(split)
     
-
-
-    dfy = df.drop(['Rain', 'Humidity', 'Pressure', 'WindSpeed', 'WindDir'], axis=1)
+    dfy = df.drop(weatherElements, axis=1)
+    # dfy = df.drop(['Rain', 'Humidity', 'Temperature', 'WindSpeed', 'WindDir'], axis=1)
     
     stations = numOfStations
     features = 6
     tfeatures = 6
+    pfeautures = 6 - len(weatherElements)
 
     date_format = "%Y-%m-%d %H:%M:%S"
     df = df.values.reshape(samples, stations, features)
-    dfy = dfy.values.reshape(samples, stations, 1)
+    dfy = dfy.values.reshape(samples, stations, pfeautures)
    
     l = len (tData)
     time = []
@@ -101,7 +114,7 @@ def sliding_window(df, lag, horizon, split, numOfStations,tData,lon,lat,scaler):
     time = np.concatenate([time], axis=-1)
 
     datay = np.expand_dims(dfy, axis=-1)
-    datay = datay.reshape(samples, 1, stations, 1)
+    datay = datay.reshape(samples, 1, stations, pfeautures)
     datay = np.concatenate([datay], axis=-1)
 
     x, y , times = [], [], []
@@ -121,8 +134,8 @@ def sliding_window(df, lag, horizon, split, numOfStations,tData,lon,lat,scaler):
     x = np.squeeze(x)
     times = np.squeeze(times)
     y = np.squeeze(y, axis=2)
-    print('Shape of X : ' + str(x.shape))
-    print('Shape of Y : ' + str(y.shape))
+    print('Shape of ' + message + ' -> X : ' + str(x.shape))
+    print('Shape of ' + message + ' -> Y : ' + str(y.shape))
    
     return x, y, times
 
@@ -136,8 +149,13 @@ def prepare_data_split(sharedConfig, increments):
                  (increments[2]) * sharedConfig['num_nodes']['default']]
         return split
 
-def main(h,modelConfig,filePath,outputDir,increments):
-    print("Generating data")
+def main(h,modelConfig,filePath,outputDir,increments,f_variables):
+    # weatherElements = ['Rain', 'Humidity', 'Temperature', 'WindSpeed', 'WindDir']
+    weatherElements = ['Pressure' ,'WindDir' ,'WindSpeed' ,'Humidity' ,'Rain','Temperature']
+    for element in f_variables:
+        weatherElements.remove(element)
+
+    print("Generating data for " + str(f_variables) + " prediction")
     numOfStations = modelConfig['num_nodes']['default']
     horizon = h
     lag = modelConfig['lag_length']['default']
@@ -160,12 +178,15 @@ def main(h,modelConfig,filePath,outputDir,increments):
     t_sets = split_data(time_data,splits)
     lo = split_data(longitude,splits)
     la = split_data(latitude,splits)
-    scaler = NormScaler(raw_data[:splits[0]].min(), raw_data[:splits[0]].max())
+    # print(splits)
+    scaler = NormScaler(raw_data[:splits[2]].min(), raw_data[:splits[2]].max())
 
-    train_x, train_y, train_context = sliding_window(scaler.transform(sets[0]), lag, h, increments[0], numOfStations, t_sets[0].values,lo[0],la[0],scaler)
-    val_x, val_y, val_context = sliding_window(scaler.transform(sets[1]), lag, h, increments[1] - increments[0], numOfStations, t_sets[1].values,lo[1],la[1],scaler)
-    test_x, test_y, test_context = sliding_window(scaler.transform(sets[2]), lag, h, increments[2] - increments[1], numOfStations, t_sets[2].values,lo[2],la[2],scaler)
-    
+    train_x, train_y, train_context = sliding_window(scaler.transform(sets[0]), lag, h, increments[0], numOfStations, t_sets[0].values,lo[0],la[0],'train set',weatherElements)
+    val_x, val_y, val_context = sliding_window(scaler.transform(sets[1]), lag, h, increments[1] - increments[0], numOfStations, t_sets[1].values,lo[1],la[1],'validation set',weatherElements)
+    test_x, test_y, test_context = sliding_window(scaler.transform(sets[2]), lag, h, increments[2] - increments[1], numOfStations, t_sets[2].values,lo[2],la[2],'test set', weatherElements)
+    # print(scaler.inverse_transform(test_y,'Rain').shape)
+    # print(train_y)
+
     datasets =[[train_x, train_y, train_context], [val_x, val_y, val_context], [test_x,test_y, test_context]]
     subsets = ['trn','val','test']
     path = outputDir + "/horizon_{}".format(h)
@@ -183,6 +204,7 @@ def main(h,modelConfig,filePath,outputDir,increments):
         save_data = {'lonlat': lonlat}
         pickle.dump(save_data, f, protocol = 4)
 
+    print("..........................................................................")
     return scaler
 
 if __name__ == "__main__":

@@ -81,7 +81,7 @@ weight_decay:
   help: weight decay rate
 epochs:
   type: int
-  default: 30
+  default: 3
   help: ''
 save:
   type: str
@@ -95,3 +95,12 @@ optimizer:
   type: string
   default: 'Adam'     #Only accepts Adam, SGD, RMSprop.
   help: type of optimizers used for model (to add another method look at User Guide), default type set to Adam
+num_forcast_variable:
+  type: int
+  default: 3
+  help: number of forecasting variables needed. The number of output variable
+forecast_variable:
+  type: [str]
+  # default: ['Pressure' ,'WindDir' ,'WindSpeed' ,'Humidity' ,'Rain','Temperature']
+  default: ['Pressure', 'Humidity', 'Temperature']
+  help: weather variable that will be forecasted by the model in the order  Pressure,WindDir,WindSpeed,Humidity,Rain,Temperature

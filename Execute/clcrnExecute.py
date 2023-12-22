@@ -45,6 +45,7 @@ class clcrnExecute(modelExecute):
         self.save_dir = self.modelConfig['save_dir']['default']
         
         self._epoch_num = self.modelConfig['epoch']['default']
+        self.predictVariable = self.modelConfig['forecast_variable']['default']
         
     @staticmethod
     def _get_log_dir(self):
@@ -97,7 +98,7 @@ class clcrnExecute(modelExecute):
             for s in range(0,splitsLen-2):
                 fPath = self.modelConfig['data']['default']
                 outputDir = self.modelConfig['dataset_dir']['default']
-                self.standard_scaler = createData.main(h,self.modelConfig,fPath,outputDir,self.increments[s:s+3])
+                self.standard_scaler = createData.main(h,self.modelConfig,fPath,outputDir,self.increments[s:s+3],self.predictVariable)
 
                 path =  self.modelConfig['dataset_dir']['default'] + '/horizon_{}'.format(h)
                 position_path = self.modelConfig['dataset_dir']['default'] + '/horizon_{}/position_info.pkl'.format(h)
@@ -107,7 +108,7 @@ class clcrnExecute(modelExecute):
                 self.geodesic = torch.from_numpy(self._data['kernel_info']['geodesic']).float().to(self._device)
                 self.angle_ratio = torch.from_numpy(self._data['kernel_info']['angle_ratio']).float().to(self._device)
                 print('==========================================')
-                print(self.angle_ratio)
+                # print(self.angle_ratio)
 
                 if self._model_name == 'CLCRN':
                     model = CLCRNModel(
@@ -126,10 +127,11 @@ class clcrnExecute(modelExecute):
                 self.getMatrix('s')
 
                 self._logger.info("Model created for horizon : " + str(h) + " split " + str(self.increments[s]))
+                # print(self.modelConfig['steps']['default'])
                 self._train(h,self.modelConfig['base_lr']['default'], self.modelConfig['steps']['default'])
             
 
-    def evaluate(self, dataset, batches_seen, epoch_num, load_model=False, steps=None):
+    def evaluate(self, dataset, batches_seen, epoch_num,save = False, load_model=False, steps=None):
 
         if load_model == True:
             self.load_model(epoch_num)
@@ -158,11 +160,43 @@ class clcrnExecute(modelExecute):
             y_preds = torch.cat(y_preds, dim=1)
             y_truths = torch.cat(y_truths, dim=1)
 
+            y_truths = y_truths.permute(1, 0, 2, 3)
+            y_preds = y_preds.permute(1, 0, 2, 3)
+            
             loss_mae = MAE_metric(y_preds, y_truths).item()
             loss_mse = MSE_metric(y_preds, y_truths).item()
-            loss_mape = SMAPE_metric(y_preds, y_truths).item()
+            loss_mape = SMAPE_metric(y_preds, y_truths,self.standard_scaler).item()
             dict_out = {'prediction': y_preds, 'truth': y_truths}
             dict_metrics = {}
+            # print(self.standard_scaler.inverse_transform(y_preds,['Temperature']))
+            if(dataset == 'val'):
+                
+                for c in range(0,len(self.predictVariable)):
+                    directory_path = '{}/{}/validation/'.format(self._log_dir,self.predictVariable[c])
+                    os.makedirs(directory_path, exist_ok=True)
+
+                    with open('{}actualsNorm.pkl'.format(directory_path), "wb") as f:
+                        smapeData = {'y_trues': np.array(y_truths[:,:,:,c:c+1]) }
+                        # print(y_truths[:,:,:,c:c+1].shape)
+                        pickle.dump(smapeData, f, protocol = 4)
+
+                    with open('{}predictionsNorm.pkl'.format(directory_path), "wb") as f:
+                        smapeData = {'y_preds': np.array(y_preds[:,:,:,c:c+1])}
+                        pickle.dump(smapeData, f, protocol = 4)
+
+                    y_truths = self.standard_scaler.inverse_transform(y_truths,self.predictVariable[c])
+                    y_preds = self.standard_scaler.inverse_transform(y_preds,self.predictVariable[c])
+
+                    with open('{}actuals.pkl'.format(directory_path), "wb") as f:
+                        smapeData = {'y_trues': np.array(y_truths[:,:,:,c:c+1]) }
+                        pickle.dump(smapeData, f, protocol = 4)
+
+                    with open('{}predictions.pkl'.format(directory_path), "wb") as f:
+                        smapeData = {'y_preds': np.array(y_preds[:,:,:,c:c+1])}
+                        pickle.dump(smapeData, f, protocol = 4)
+
+
+            # print(y_truths.shape)
             if exists(steps):
                 for step in steps:
                     assert(step <= y_preds.shape[0]), ('the largest step is should smaller than prediction horizon!!!')
@@ -212,6 +246,36 @@ class clcrnExecute(modelExecute):
                     optimizer = torch.optim.Adam(self.model.parameters(), lr=base_lr, eps=epsilon)
 
                 loss, y_true, y_pred = self._compute_loss(y, output)
+                # print(y_true.type)
+                # print(y_pred.type)
+                y_pred = y_pred.detach()  # Add this line
+                y_true = y_true.permute(1, 0, 2, 3)
+                y_pred = y_pred.permute(1, 0, 2, 3)
+
+                for c in range(0,len(self.predictVariable)):
+                    directory_path = '{}/{}/train/'.format(self._log_dir,self.predictVariable[c])
+                    os.makedirs(directory_path, exist_ok=True)
+
+                    with open('{}actualsNorm.pkl'.format(directory_path), "wb") as f:
+                        smapeData = {'y_trues': np.array(y_true[:,:,:,c:c+1]) }
+                        # print(y_true[:,:,:,c:c+1].shape)
+                        pickle.dump(smapeData, f, protocol = 4)
+
+                    with open('{}predictionsNorm.pkl'.format(directory_path), "wb") as f:
+                        smapeData = {'y_preds': np.array(y_pred[:,:,:,c:c+1])}
+                        pickle.dump(smapeData, f, protocol = 4)
+ 
+                    y_true = self.standard_scaler.inverse_transform(y_true,self.predictVariable[c])
+                    y_pred = self.standard_scaler.inverse_transform(y_pred,self.predictVariable[c])
+
+                    with open('{}actuals.pkl'.format(directory_path), "wb") as f:
+                        smapeData = {'y_trues': np.array(y_true[:,:,:,c:c+1]) }
+                        # print(y_true[:,:,:,c:c+1].shape)
+                        pickle.dump(smapeData, f, protocol = 4)
+
+                    with open('{}predictions.pkl'.format(directory_path), "wb") as f:
+                        smapeData = {'y_preds': np.array(y_pred[:,:,:,c:c+1])}
+                        pickle.dump(smapeData, f, protocol = 4)
                 
                 progress_bar.set_postfix(training_loss=loss.item())
                 self._logger.debug(loss.item())
@@ -286,23 +350,17 @@ class clcrnExecute(modelExecute):
         """
         self._logger.debug("X: {}".format(x.size()))
         self._logger.debug("y: {}".format(y.size()))
+        # print(x.shape)
         x = x.permute(1, 0, 2, 3).float()
-        y = y.permute(1, 0, 2, 3).float()
+        y = y.permute(1, 0, 2, 3).float() #CHECK IF THIS SHAPE AFFECTS ACCURACY
         return x, y
 
     def _compute_loss(self, y_true, y_predicted):
-        for out_dim in range(self.output_dim):
-            y_true[...,out_dim] = self.standard_scaler.inverse_transform(y_true[...,out_dim])
-            y_predicted[...,out_dim] = self.standard_scaler.inverse_transform(y_predicted[...,out_dim])
+        # for out_dim in range(self.output_dim):
+            # y_true[...,out_dim] = self.standard_scaler.inverse_transform(y_true[...,out_dim])
+            # y_predicted[...,out_dim] = self.standard_scaler.inverse_transform(y_predicted[...,out_dim])
 
         return masked_mae_loss(y_predicted, y_true), y_true, y_predicted
-
-    def _convert_scale(self, y_true, y_predicted):
-        for out_dim in range(self.output_dim):
-            y_true[...,out_dim] = self.standard_scaler.inverse_transform(y_true[...,out_dim])
-            y_predicted[...,out_dim] = self.standard_scaler.inverse_transform(y_predicted[...,out_dim])
-
-        return y_true, y_predicted
         
     def _prepare_x(self, x):
         x = x.permute(1, 0, 2, 3).float()
@@ -325,7 +383,7 @@ class clcrnExecute(modelExecute):
                 " MAE : {}".format(mean_score), "MSE : {}".format(np.sqrt(mean_loss_mse)), "SMAPE : {}".format(mean_loss_mape)
             self._logger.info(message)
             message = "Metrics in different steps: {}".format(dict_metrics)
-            self._logger.info(message)
+            # self._logger.info(message)
     
     def _get_time_prediction(self):
         import copy
@@ -357,15 +415,37 @@ class clcrnExecute(modelExecute):
 
             y_preds = torch.cat(y_preds, 0).squeeze(dim=1).cpu().numpy()
             y_trues = torch.cat(y_trues, 0).squeeze(dim=1).cpu().numpy()
+            c =0
+            
 
-            import pickle
-            with open('{}/actuals.pkl'.format(self._log_dir), "wb") as f:
-                smapeData = {'y_trues': y_trues}
-                pickle.dump(smapeData, f, protocol = 4)
+            for c in range(0,len(self.predictVariable)):
+                directory_path = '{}/{}/test/'.format(self._log_dir,self.predictVariable[c])
+                os.makedirs(directory_path, exist_ok=True)
 
-            with open('{}/predictions.pkl'.format(self._log_dir), "wb") as f:
-                smapeData = {'y_preds': y_preds}
-                pickle.dump(smapeData, f, protocol = 4)
+                with open('{}actualsNorm.pkl'.format(directory_path), "wb") as f:
+                    smapeData = {'y_trues': y_trues[:,:,:,c:c+1]}
+                    pickle.dump(smapeData, f, protocol = 4)
+
+                with open('{}predictionsNorm.pkl'.format(directory_path), "wb") as f:
+                    smapeData = {'y_preds': y_preds[:,:,:,c:c+1]}
+                    pickle.dump(smapeData, f, protocol = 4)
+            
+            y_trues = self.standard_scaler.inverse_transform(y_trues,self.predictVariable)
+            y_preds = self.standard_scaler.inverse_transform(y_preds,self.predictVariable)
+            # print(y_trues[:,:,:,1:2])
+            c = 0
+
+            for c in range(0,len(self.predictVariable)):
+                directory_path = '{}/{}/test/'.format(self._log_dir,self.predictVariable[c])
+                os.makedirs(directory_path, exist_ok=True)
+
+                with open('{}actuals.pkl'.format(directory_path), "wb") as f:
+                    smapeData = {'y_trues': y_trues[:,:,:,c:c+1]}
+                    pickle.dump(smapeData, f, protocol = 4)
+
+                with open('{}predictions.pkl'.format(directory_path), "wb") as f:
+                    smapeData = {'y_preds': y_preds[:,:,:,c:c+1]}
+                    pickle.dump(smapeData, f, protocol = 4)
         print("Storing actuals vs predicted complete")
 
     def getLogger(self):
@@ -385,6 +465,12 @@ class clcrnExecute(modelExecute):
             pickle.dump(smapeData, f, protocol = 4)
 
         self._logger.info("Matrix saved in Logs")
+    
+    def convert_scale(self, y_true, y_predicted):
+        for out_dim in range(self.output_dim):
+            y_true[...,out_dim] = self.standard_scaler.inverse_transform(y_true[...,out_dim])
+            y_predicted[...,out_dim] = self.standard_scaler.inverse_transform(y_predicted[...,out_dim])
 
+        return y_true, y_predicted
 
         

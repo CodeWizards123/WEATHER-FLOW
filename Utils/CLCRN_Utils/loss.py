@@ -1,5 +1,5 @@
 import torch
-
+import numpy as np
     
 def masked_mae_loss(y_pred, y_true):
     mask = (y_true != 0).float()
@@ -29,23 +29,32 @@ def masked_mape_loss(y_pred, y_true):
     loss[loss != loss] = 0
     return loss.abs().mean()
 
-def masked_smape_loss(y_pred, y_true):
+def masked_smape_loss(y_pred, y_true, scaler=None):
     # mask = (y_true != 0).float()
     # mask /= mask.mean()
     # print(mask)
     # print("PRedicted")
-    # print(y_pred[0])
-    # print("TRue")
-    # print(y_true)
+    # # print(y_pred[0])
+    # # print("TRue")
+    # if (scaler != None):
+    #     print("-----------------------------------------------------")
+    #     print(scaler.inverse_transform(y_pred,["Temperature"]))
+    #     print("-----------------------------------------------------")
+
     numerator = torch.abs(y_pred - y_true)
     # print(numerator)
     denominator = (torch.abs(y_pred) + torch.abs(y_true)) / 2.0
     
     loss = (numerator / denominator) * 100.0
     # print(loss.mean())
-    loss = loss
+    # loss = loss
     # loss = loss  * mask
 
-    loss[loss != loss] = 0
+    # loss[loss != loss] = 0
+    # print("-----------------------------------------------")
+    # print(loss)
+    # print(torch.mean(loss))
     
-    return loss.mean()
+    return torch.mean(loss)
+
+

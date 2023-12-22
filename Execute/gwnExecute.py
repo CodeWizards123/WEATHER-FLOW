@@ -60,10 +60,11 @@ class gwnExecute(modelExecute):
 
     def get_data_loaders(self, train_data, validate_data, test_data, split):
         scaler = util.NormScaler(train_data.min(), train_data.max())
-        x_train, y_train = sharedUtil.sliding_window(scaler.transform(train_data), self.modelConfig['lag_length']['default'], self.modelConfig['seq_length']['default'], split, 0, self.sharedConfig['n_stations']['default'])
-        x_validation, y_validation = sharedUtil.sliding_window(scaler.transform(validate_data), self.modelConfig['lag_length']['default'], self.modelConfig['seq_length']['default'], split, 1, self.sharedConfig['n_stations']['default'])
-        x_test, y_test = sharedUtil.sliding_window(scaler.transform(test_data), self.modelConfig['lag_length']['default'], self.modelConfig['seq_length']['default'], split, 2, self.sharedConfig['n_stations']['default'])
+        x_train, y_train = sharedUtil.sliding_window(scaler.transform(train_data), self.modelConfig['lag_length']['default'], self.modelConfig['seq_length']['default'], split, 0, self.sharedConfig['n_stations']['default'], self.modelConfig['num_forcast_variable']['default'], self.modelConfig['forecast_variable']['default'])
+        x_validation, y_validation = sharedUtil.sliding_window(scaler.transform(validate_data), self.modelConfig['lag_length']['default'], self.modelConfig['seq_length']['default'], split, 1, self.sharedConfig['n_stations']['default'], self.modelConfig['num_forcast_variable']['default'], self.modelConfig['forecast_variable']['default'])
+        x_test, y_test = sharedUtil.sliding_window(scaler.transform(test_data), self.modelConfig['lag_length']['default'], self.modelConfig['seq_length']['default'], split, 2, self.sharedConfig['n_stations']['default'], self.modelConfig['num_forcast_variable']['default'], self.modelConfig['forecast_variable']['default'])
 
+        print(y_train.shape)
         trainLoader = util.DataLoader(x_train, y_train, self.modelConfig['batch_size']['default'])
         validationLoader = util.DataLoader(x_validation, y_validation, self.modelConfig['batch_size']['default'])
         testLoader = util.DataLoader(x_test, y_test, self.modelConfig['batch_size']['default'])
