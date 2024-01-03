@@ -321,17 +321,17 @@ class clcrnExecute(modelExecute):
                                            (end_time - start_time))
                 self._logger.info(message)
 
-            if val_loss < min_val_loss:
+            if val_loss_mape < min_val_loss:
                 wait = 0
                 if save_model:
                     best_epoch=epoch_num
                     model_file_name = self.save_model(epoch_num)
                     self._logger.info(
                         'Val loss decrease from {:.4f} to {:.4f}, '
-                        'saving to {}'.format(min_val_loss, val_loss, model_file_name))
-                min_val_loss = val_loss
+                        'saving to {}'.format(min_val_loss, val_loss_mape, model_file_name))
+                min_val_loss = val_loss_mape
 
-            elif val_loss >= min_val_loss:
+            elif val_loss_mape >= min_val_loss:
                 wait += 1
                 if wait == patience:
                     self._logger.warning('Early stopping at epoch: %d' % epoch_num)
