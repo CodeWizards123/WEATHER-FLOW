@@ -35,43 +35,42 @@ def TcnEval(tcnConfig, sharedConfig):
                 # try:
                     print(f'TCN evaluation started at {station} for the horizon of {horizon} split {split}')
                     paths = get_tcn_file_paths(station, horizon, split)
-                    tcn_logger = modelLogger('tcn', str(station),'Logs/TCN/Evaluation/' + str(horizon) + ' Hour Forecast/'+'tcn_' + str(station) +'.txt', log_enabled=True)
-                    tcn_logger.info('TCN evaluation started at' + str(station)+' for the horizon of ' +str(horizon)+ ' for split ' + str(split))
+
+                    # tcn_logger = modelLogger('tcn', str(station),'Logs/TCN/Evaluation/' + str(horizon) + ' Hour Forecast/'+'tcn_' + str(station) +'.txt', log_enabled=True)
+                    # tcn_logger.info('TCN evaluation started at' + str(station)+' for the horizon of ' +str(horizon)+ ' for split ' + str(split))
                     # Set the file paths for predictions, targets, and metrics
-                    for path in paths.values():
-                        sharedUtils.create_file_if_not_exists(path)
+                    
                     # Calculate actual vs predicted and metrics using the calculate_tcn_metrics function & save it
-                    actual_vs_predicted, metrics = calculate_tcn_metrics(paths)
-                    tcn_logger.info('actual vs prediced is :' + str(actual_vs_predicted))
-                    tcn_logger.info('saved to file :' +str(paths['actual_vs_predicted_file']) )
+                    calculate_tcn_metrics(paths)
+                    # tcn_logger.info('actual vs prediced is :' + str(actual_vs_predicted))
+                    # tcn_logger.info('saved to file :' +str(paths['actual_vs_predicted_file']) )
                     # actual_vs_predicted.to_csv(paths['actual_vs_predicted_file'], index=False)
                     # Write the metrics to the metric file
-                    with open(paths['metric_file'], 'w') as metric_file:
-                        for name, value in metrics.items():
-                            metric_file.write(f'This is the {name}: {value}\n')
-                            tcn_logger.info(f'This is the {name}: {value}\n')
+                    # with open(paths['metric_file'], 'w') as metric_file:
+                    #     for name, value in metrics.items():
+                    #         metric_file.write(f'This is the {name}: {value}\n')
+                    #         # tcn_logger.info(f'This is the {name}: {value}\n')
 
-                            if name in accumulated_metrics:
-                                accumulated_metrics[name] += value
+                    #         if name in accumulated_metrics:
+                    #             accumulated_metrics[name] += value
 
 
                          
                          
                             
         
-                    tcn_logger.info('TCN evaluation of ' + station+' for the horizon of ' +str(horizon) +' was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt') 
-                    print_metrics(metrics, station, horizon)
+                    # tcn_logger.info('TCN evaluation of ' + station+' for the horizon of ' +str(horizon) +' was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt') 
+                    # print_metrics(metrics, station, horizon)
 
-            with open(paths['avr_metrics'], 'w') as metric_file:
-                for name, value in accumulated_metrics.items():
-                    metric_file.write(f'This is the accumulative {name}: {value/45}\n')
+            # with open(paths['avr_metrics'], 'w') as metric_file:
+            #     for name, value in accumulated_metrics.items():
+            #         metric_file.write(f'This is the accumulative {name}: {value/45}\n')
 
 
                 # except Exception as e:
                 #     print('Error! : Unable to read data or write metrics for station {} and horizon length {}'.format(station, horizon), e)
                 #     tcn_logger.error('Error! : Unable to read data or write metrics for station {} and horizon length {}.'.format(station, horizon))
-        tcn_logger.info('Finished evaluation of TCN error metrics for all stations.') 
-
+        # tcn_logger.info('Finished evaluation of TCN error metrics for all stations.') 
 
 def smape_std(actual, predicted):
         """
@@ -87,25 +86,32 @@ def smape_std(actual, predicted):
 
 def calculate_tcn_metrics(paths):
     # Read the predictions and targets from the CSV files, pkl type files
-    preds = pd.read_csv(paths['yhat_path']).drop(['Unnamed: 0'], axis=1)
-    targets = pd.read_csv(paths['target_path']).drop(['Unnamed: 0'], axis=1)
-    # Create a DataFrame of actual vs predicted values
-    actual_vs_predicted = pd.DataFrame({'Actual': targets.values.flatten(), 'Predicted': preds.values.flatten()})
-    # Calculate the metrics
-    mse = metrics.mse(targets.values, preds.values)
-    rmse = metrics.rmse(targets.values, preds.values)
-    mae = metrics.mae(targets.values, preds.values)
-    smape = metrics.smape(targets.values, preds.values)
-    smape_std_dev = smape_std(targets.values, preds.values)
-    # Compile metrics into a dictionary
-    calculated_metrics = {
-        "mse": mse,
-        "rmse": rmse,
-        "mae": mae,
-        "smape": smape,
-        "smape_std_dev": smape_std_dev
-    }
-    return actual_vs_predicted, calculated_metrics
+    y_pred = np.load(paths['yhat_path'], allow_pickle=True)
+    y_true = np.load(paths['target_path'], allow_pickle=True)
+    for attribute in range(2):
+                        station_pred = y_pred[:, :, attribute]
+                        station_true = y_true[:, :, attribute]
+                        # print(station_true)
+                        # print("Evaluating horizon:"+ str(horizon) + " split:" + str(k) + " for station:" + stations[i])
+                        # print(station_pred)
+
+                        rmse =  metrics.rmse(station_true, station_pred)
+                        mse = metrics.mse(station_true, station_pred)
+                        mae = metrics.mae(station_true, station_pred)
+                        smape = metrics.smape(station_true.flatten(), station_pred.flatten())
+                       
+                        if not os.path.exists(paths['metric_file']):
+                            os.makedirs(paths['metric_file'])
+                    
+                        with open(paths['metric_file'] + "attribute_" + str(attribute) + ".txt", 'w') as file:
+                            file.write('This is the RMSE ' + str(rmse) + '\n')
+                            file.write('This is the MSE ' + str(mse) + '\n')
+                            file.write('This is the MAE ' + str(mae) + '\n')
+                            file.write('This is the SMAPE ' + str(smape) + '\n')
+
+
+
+
 
 def GwnEval(gwnConfig, sharedConfig):
     stations = sharedConfig['stations']['default']
@@ -212,12 +218,13 @@ def print_metrics(metrics, station, horizon):
      
 def get_tcn_file_paths(station, horizon, split, model='TCN'):
     return {
-            "yhat_path" : f'Results/TCN/{horizon} Hour Forecast/{station}/Predictions/result_{split}.csv',
-            "target_path" : f'Results/TCN/{horizon} Hour Forecast/{station}/Targets/target_{split}.csv',
-            "metric_file" : f'Results/TCN/{horizon} Hour Forecast/{station}/Metrics/metrics_{split}.txt',
-            "actual_vs_predicted_file" : f'Results/TCN/{horizon} Hour Forecast/{station}/Metrics/actual_vs_predicted.txt',
+            "yhat_path" : f'Results/TCN/{horizon} Hour Forecast/{station}/Predictions/result_{split}.npy',
+            "target_path" : f'Results/TCN/{horizon} Hour Forecast/{station}/Targets/target_{split}.npy',
+            "metric_file" : f'Results/TCN/{horizon} Hour Forecast/{station}/Metrics/',
+            # "actual_vs_predicted_file" : f'Results/TCN/{horizon} Hour Forecast/{station}/Metrics/actual_vs_predicted.txt',
             "avr_metrics" :  f'Results/TCN/{horizon} Hour Forecast/average/avr_metrics_{split}.txt'
         }
+
 def get_gwn_file_paths(station, horizon, split,model='GWN'):
     folder_name = f'{horizon} Hour Forecast'
     station_with_spaces = station.replace('_', ' ')

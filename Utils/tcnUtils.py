@@ -72,19 +72,23 @@ def min_max(train, validation, test):
     norm = MinMaxScaler().fit(train)
     # norm = MinMaxScaler().fit(allDataTrain)
 
+    # print("this is zulu0")
+    # print(test)
 
     train_data = norm.transform(train)
     val_data = norm.transform(validation)
     test_data = norm.transform(test)
 
-    # train_data = norm.inverse_transform(train)
-    # val_data = norm.inverse_transform(validation)
-    # test_data = norm.inverse_transform(test)
+    train_data = norm.inverse_transform(train_data)
+    val_data = norm.inverse_transform(val_data)
+    test_data = norm.inverse_transform(test_data)
 
+    print("this is zulu1")
+    print(test_data)
     return train_data, val_data, test_data
 
 
-def create_X_Y(ts: np.array, lag=1, n_ahead=1, target_indices=[2, 0]):
+def create_X_Y(ts: np.array, lag=1, n_ahead=1, target_indices=[0, 1]):
     """
     A method to create X and Y matrix from a time series array.
     Parameters:
