@@ -77,10 +77,14 @@ def min_max(train, validation, test):
     val_data = norm.transform(validation)
     test_data = norm.transform(test)
 
+    # train_data = norm.inverse_transform(train)
+    # val_data = norm.inverse_transform(validation)
+    # test_data = norm.inverse_transform(test)
+
     return train_data, val_data, test_data
 
 
-def create_X_Y(ts: np.array, lag=1, n_ahead=1, target_index=0):
+def create_X_Y(ts: np.array, lag=1, n_ahead=1, target_indices=[2, 0]):
     """
     A method to create X and Y matrix from a time series array.
     Parameters:
@@ -98,13 +102,22 @@ def create_X_Y(ts: np.array, lag=1, n_ahead=1, target_index=0):
         X.append(ts)
     else:
         for i in range(len(ts) - lag - n_ahead):
-            Y.append(ts[(i + lag):(i + lag + n_ahead), target_index])
+            # print("one")
+            # print(ts[(i + lag):(i + lag + n_ahead)])
+            # print("two")
+            # print(ts[(i + lag):(i + lag + n_ahead), target_indices])
+            # print()
+            Y.append(ts[(i + lag):(i + lag + n_ahead), target_indices])
             X.append(ts[i:(i + lag)])
 
     X, Y = np.array(X), np.array(Y)
 
     X = np.reshape(X, (X.shape[0], lag, n_features))
     x, y = shuffle(X, Y, random_state=0)
+    print("this is x")
+    print(x.shape)
+    print("this is y")
+    print(y.shape)
 
     return x, y
 
