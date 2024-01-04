@@ -20,18 +20,18 @@ def latlon2xyz(lat,lon):
     z= np.sin(lat)
     return x,y,z
 
-def load_dataset(dataset_dir, split, batch_size, position_file, val_batch_size=None, include_context=False, **kwargs):
+def load_dataset(dataset_dir, split, batch_size, position_file, val_batch_size=None, include_context=False):
 
     if val_batch_size == None:
         val_batch_size = batch_size
     
-    with open(dataset_dir + '/val_split_{}.pkl'.format(split), 'rb') as f:
-        data = pickle.load(f)
+    # with open(dataset_dir + '/val_split_{}.pkl'.format(split), 'rb') as f:
+    #     data = pickle.load(f)
     with open(position_file, 'rb') as f:
         lonlat = pickle.load(f)['lonlat']
 
-    train_numpy = data['x']
-    split_len = data['x'].shape[0]
+    # train_numpy = data['x']
+    # split_len = data['x'].shape[0]
 
     kernel_generator = KernelGenerator(lonlat)
     kernel_info = {'sparse_idx': kernel_generator.sparse_idx,
@@ -160,7 +160,7 @@ class KernelGenerator:
 class Dataset(Dataset):
     """IRDataset dataset."""
 
-    def __init__(self, dataset_dir,split, mode, batch_size, scaler=None, include_context=True):
+    def __init__(self, dataset_dir,split, mode, batch_size, scaler=None, include_context=False):
         self.file = dataset_dir
         print(dataset_dir + '/{}_split_{}.pkl'.format(mode,split))
         print('loading data of {} set...'.format(mode))

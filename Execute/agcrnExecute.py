@@ -60,7 +60,7 @@ class agcrnExecute(modelExecute):
         agcrnUtil.init_seed(self.modelConfig['seed']['default'])
 
         if torch.cuda.is_available():
-            torch.cuda.set_device()
+            torch.cuda.set_device('cuda:0')
         else:
             DEVICE= 'cpu'
 
@@ -171,7 +171,7 @@ class agcrnExecute(modelExecute):
                 data = data[..., :self.modelConfig['input_dim']['default']]  
                 label = target[..., :self.modelConfig['output_dim']['default']]   
                 output = self.model(data, target, teacher_forcing_ratio=0.)
-                loss = self.loss(output.cpu(), label) #changes from cuda
+                loss = self.loss(output.cuda(), label) #changes from cuda
                 #a whole batch of Metr_LA is filtered
                 if not torch.isnan(loss):
                     total_val_loss += loss.item()
@@ -199,7 +199,7 @@ class agcrnExecute(modelExecute):
                 teacher_forcing_ratio = 1.
             #data and target shape: B, T, N, F; output shape: B, T, N, F
             output = self.model(data, target, teacher_forcing_ratio=teacher_forcing_ratio)
-            loss = self.loss(output.cpu(), label) #was cpu
+            loss = self.loss(output.cuda(), label) #was cpu
             loss.backward()
 
             # add max grad clipping
@@ -339,8 +339,10 @@ class agcrnExecute(modelExecute):
 
         sharedUtil.create_file_if_not_exists(self.fileDictionary["targetFile"])
         sharedUtil.create_file_if_not_exists(self.fileDictionary["predFile"])
-        np.save(self.fileDictionary["targetFile"], y_true)
-        np.save(self.fileDictionary["predFile"], y_pred)
+        #np.save(self.fileDictionary["targetFile"], y_true)
+        #np.save(self.fileDictionary["predFile"], y_pred)
+        np.save(self.fileDictionary["targetFile"], y_true.cpu().numpy())
+        np.save(self.fileDictionary["predFile"], y_pred.cpu().numpy())
 
     @staticmethod
     def _compute_sampling_threshold(global_step, k):

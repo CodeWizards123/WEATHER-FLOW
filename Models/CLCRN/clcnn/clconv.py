@@ -4,6 +4,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 # from Utils.CLCRN_Utils import utils
 from Utils.CLCRN_Utils import createData
+# torch.manual_seed(0)
+
 class ConvAttrs:
     def __init__(self, 
         location_dim, 
@@ -73,7 +75,12 @@ class CLConv(nn.Module, ConvAttrs):
         angle_ratio = self.angle_ratio
 
         if getMatrix:
-            m = alpha
+            # m = alpha
+            m = lcker * distance_decay * angle_ratio
+            # print(m)
+            # print(lcker)
+            # print(distance_decay)
+            # print(angle_ratio)
             min_val = torch.min(m)
             max_val = torch.max(m)
             scaler = createData.NormScaler(min_val,max_val)
