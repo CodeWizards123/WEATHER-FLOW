@@ -259,30 +259,14 @@ def AgcrnEval(modelConfig,sharedConfig):
 
 
 
-                # print(y_pred.shape)
-                # print(y_pred)
-                # print(y_true.shape)
-                # print(y_true)
-
-
-                # output_filename = "y_true_data.txt"
-
-                # with open(output_filename, 'w') as file:
-                #     # Write the shape of y_true
-                #     file.write(f"Shape: {y_true.shape}\n\n")
-
-                #     # Write the contents of y_true
-                #     for item in y_true:
-                #         file.write(f"{item}\n")
-
                 #per station metrics
-                for attribute in range(2):
+                for attribute in range(1):
                     y_pred=np.load(fileDictionary["predFile"] + ".npy")
-                    y_true=np.load(fileDictionary["targetFile"] + ".npy")
+                    y_true=np.load(fileDictionary["targetFile"] +".npy")
                     for i in range(45):
                         station_pred = y_pred[:, :, i, attribute]
                         station_true = y_true[:, :, i, attribute]
-                        # print(station_true)
+                        # print(station_pred)
                         print("Evaluating horizon:"+ str(horizon) + " split:" + str(k) + " for station:" + stations[i])
                         # print(station_pred)
 

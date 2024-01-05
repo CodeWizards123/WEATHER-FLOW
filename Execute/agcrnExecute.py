@@ -84,12 +84,13 @@ class agcrnExecute(modelExecute):
                                     weight_decay=0, amsgrad=False)
         #learning rate decay
         lr_scheduler = None
-        if self.modelConfig['lr_decay']['default']:
-            print('Applying learning rate decay.')
-            lr_decay_steps = [int(i) for i in list(self.modelConfig['lr_decay_step']['default'].split(','))]
-            lr_scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer=optimizer,
-                                                                milestones=lr_decay_steps,
-                                                                gamma=self.modelConfig['lr_decay_rate']['defaults'])
+        print('Applying learning rate decay.')
+        lr_decay_steps = [int(i) for i in self.modelConfig['lr_decay_step']['default']]
+
+        # lr_decay_steps = [int(i) for i in list(self.modelConfig['lr_decay_step']['default'].split(','))]
+        lr_scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer=optimizer,
+                                                            milestones=lr_decay_steps,
+                                                            gamma=self.modelConfig['lr_decay_rate']['default'])
 
         self.model = model
         self.loss = loss
@@ -107,12 +108,12 @@ class agcrnExecute(modelExecute):
         start_time = time.time()
 
         for epoch in range(1, self.modelConfig['epochs']['default'] + 1):
-            train_epoch_loss = self.train_epoch(epoch)
+            train_epoch_loss, y_true_train, y_pred_train = self.train_epoch(epoch)
             if self.val_loader == None:
                 val_dataloader = self.test_loader
             else:
                 val_dataloader = self.val_loader
-            val_epoch_loss = self.val_epoch(epoch, val_dataloader)
+            val_epoch_loss, y_true_val, y_pred_val  = self.val_epoch(epoch, val_dataloader)
             train_loss_list.append(train_epoch_loss)
             val_loss_list.append(val_epoch_loss)
             if train_epoch_loss > 1e6:
@@ -140,6 +141,19 @@ class agcrnExecute(modelExecute):
                 print('*********************************Current best model saved!')
                 best_model = copy.deepcopy(self.model.state_dict())
 
+                sharedUtil.create_file_if_not_exists(self.fileDictionary["targetFile_train"])
+                sharedUtil.create_file_if_not_exists(self.fileDictionary["predFile_train"])
+                sharedUtil.create_file_if_not_exists(self.fileDictionary["targetFile_val"])
+                sharedUtil.create_file_if_not_exists(self.fileDictionary["predFile_val"])
+
+                np.save(self.fileDictionary["targetFile_train"], y_true_train)
+                np.save(self.fileDictionary["predFile_train"], y_pred_train.detach().numpy())
+                np.save(self.fileDictionary["targetFile_val"], y_true_train)
+                np.save(self.fileDictionary["predFile_val"], y_pred_train.detach().numpy())
+
+
+
+
         training_time = time.time() - start_time
         self.model_logger.info("Total training time: {:.4f}min, best loss: {:.6f}".format((training_time / 60), best_loss))
         print("Total training time: {:.4f}min, best loss: {:.6f}".format((training_time / 60), best_loss))
@@ -166,25 +180,39 @@ class agcrnExecute(modelExecute):
         total_val_loss = 0
 
         with torch.no_grad():
+            y_pred = []
+            y_true = []
             for batch_idx, (data, target) in enumerate(val_dataloader):
 
                 data = data[..., :self.modelConfig['input_dim']['default']]  
                 label = target[..., :self.modelConfig['output_dim']['default']]   
                 output = self.model(data, target, teacher_forcing_ratio=0.)
-                loss = self.loss(output.cuda(), label) #changes from cuda
+                loss = self.loss(output.cpu(), label) #change
                 #a whole batch of Metr_LA is filtered
                 if not torch.isnan(loss):
                     total_val_loss += loss.item()
+
+                y_true.append(label)
+                y_pred.append(output)
+        
+            y_true = torch.cat(y_true, dim=0)
+            y_pred = torch.cat(y_pred, dim=0)
+
+                
         val_loss = total_val_loss / len(val_dataloader)
 
         self.model_logger.info('**********Val Epoch {}: average Loss: {:.6f}'.format(epoch, val_loss))
         print('**********Val Epoch {}: average Loss: {:.6f}'.format(epoch, val_loss))
-        return val_loss
+        return val_loss, y_true, y_pred
 
 
     def train_epoch(self, epoch):
         self.model.train()
         total_loss = 0
+
+                
+        y_pred = []
+        y_true = []
         for batch_idx, (data, target) in enumerate(self.train_loader):
             data = data[..., :self.modelConfig['input_dim']['default']]  #input data
             label = target[..., :self.modelConfig['output_dim']['default']]  # (..., 1)
@@ -199,7 +227,8 @@ class agcrnExecute(modelExecute):
                 teacher_forcing_ratio = 1.
             #data and target shape: B, T, N, F; output shape: B, T, N, F
             output = self.model(data, target, teacher_forcing_ratio=teacher_forcing_ratio)
-            loss = self.loss(output.cuda(), label) #was cpu
+
+            loss = self.loss(output.cpu(), label) #change
             loss.backward()
 
             # add max grad clipping
@@ -215,6 +244,12 @@ class agcrnExecute(modelExecute):
                     epoch, batch_idx, self.train_per_epoch, loss.item()))
                 print('Train Epoch {}: {}/{} Loss: {:.6f}'.format(
                     epoch, batch_idx, self.train_per_epoch, loss.item()))
+                
+            y_true.append(label)
+            y_pred.append(output)
+        
+        y_true = torch.cat(y_true, dim=0)
+        y_pred = torch.cat(y_pred, dim=0)
    
         train_epoch_loss = total_loss/self.train_per_epoch
         self.model_logger.info('**********Train Epoch {}: averaged Loss: {:.6f}, tf_ratio: {:.6f}'.format(epoch, train_epoch_loss, teacher_forcing_ratio))
@@ -223,7 +258,7 @@ class agcrnExecute(modelExecute):
         #learning rate decay
         if self.modelConfig['lr_decay']['default']:
             self.lr_scheduler.step()
-        return train_epoch_loss
+        return train_epoch_loss, y_true, y_pred
 
 
 
@@ -247,6 +282,15 @@ class agcrnExecute(modelExecute):
         self.fileDictionary = {
             'predFile': './Results/AGCRN/' + str(forecast_len) + ' Hour Forecast/Predictions/outputs_' + str(k),
             'targetFile': 'Results/AGCRN/' + str(forecast_len) + ' Hour Forecast/Targets/targets_' + str(k),
+            'predFile_unnormalised': './Results/AGCRN/' + str(forecast_len) + ' Hour Forecast/Predictions/output_unnormaliseds_' + str(k),
+            'targetFile_unnormalised': 'Results/AGCRN/' + str(forecast_len) + ' Hour Forecast/Targets/targets_unnormalised_' + str(k),
+
+
+            'predFile_val': './Results/AGCRN/' + str(forecast_len) + ' Hour Forecast/Predictions/output_val_' + str(k),
+            'targetFile_val': 'Results/AGCRN/' + str(forecast_len) + ' Hour Forecast/Targets/targets_val_' + str(k),
+            'predFile_train': './Results/AGCRN/' + str(forecast_len) + ' Hour Forecast/Predictions/output_train_' + str(k),
+            'targetFile_train': 'Results/AGCRN/' + str(forecast_len) + ' Hour Forecast/Targets/targets_train_' + str(k),
+
             'trainLossFile': 'Results/AGCRN/' + str(forecast_len) + ' Hour Forecast/Matrices/adjacency_matrix_' + str(k) + '.csv',
             'validationLossFile': 'Results/AGCRN/' + str(forecast_len) + ' Hour Forecast/Matrices/adjacency_matrix_' + str(k) + '.csv',
             'modelFile': 'Garage/Final Models/AGCRN/' + str(forecast_len) + ' Hour Models/model_split_' + str(k) + ".pth",
@@ -300,49 +344,39 @@ class agcrnExecute(modelExecute):
         model.eval()
         y_pred = []
         y_true = []
+        y_pred_unnormalised = []
+        y_true_unnormalised = []
         with torch.no_grad():
             for batch_idx, (data, target) in enumerate(data_loader):
-                # print("this is data")
-                # print(data)
-                # print("this is target")
-                # print(target)
+
                 data = data[..., :modelConfig['input_dim']['default']]
                 label = target[..., :modelConfig['output_dim']['default']]
-                # print("this is target shape")
-                # print(target.shape)
-                # data = data
-                # label = target
-
+    
                 shape = (5, 8, 45, 2)
 
                 # Generating a tensor of zeros with the given shape
                 zeros_tensor = torch.zeros(shape)
                 
                 output = model(data, zeros_tensor, teacher_forcing_ratio=0)
-                label = self.scaler.inverse_transform(label)
                 y_true.append(label)
-           
-                # print("this is ytrue")
-                # print(y_true)
-                # print("this is outut")
-                # print(output)
-                output = self.scaler.inverse_transform(output)
-               
+                label = self.scaler.inverse_transform(label)
+                y_true_unnormalised.append(label)
+   
                 y_pred.append(output)
-
-                # print("this is ypred")
-                # print(y_pred)
+                output = self.scaler.inverse_transform(output)
+                y_pred_unnormalised.append(output)
 
 
         y_true = torch.cat(y_true, dim=0)
         y_pred = torch.cat(y_pred, dim=0)
+        y_true_unnormalised = torch.cat(y_true_unnormalised, dim=0)
+        y_pred_unnormalised = torch.cat(y_pred_unnormalised, dim=0)
 
-        sharedUtil.create_file_if_not_exists(self.fileDictionary["targetFile"])
-        sharedUtil.create_file_if_not_exists(self.fileDictionary["predFile"])
-        #np.save(self.fileDictionary["targetFile"], y_true)
-        #np.save(self.fileDictionary["predFile"], y_pred)
+
         np.save(self.fileDictionary["targetFile"], y_true.cpu().numpy())
         np.save(self.fileDictionary["predFile"], y_pred.cpu().numpy())
+        np.save(self.fileDictionary["targetFile_unnormalised"], y_true_unnormalised.cpu().numpy())
+        np.save(self.fileDictionary["predFile_unnormalised"], y_pred_unnormalised.cpu().numpy())
 
     @staticmethod
     def _compute_sampling_threshold(global_step, k):

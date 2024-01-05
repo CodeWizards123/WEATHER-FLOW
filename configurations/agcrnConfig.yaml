@@ -4,7 +4,7 @@ num_nodes:
   help: number of nodes in the graph
 lag:
   type: int
-  default: 6
+  default: 24
   help: lag value for the model
 horizon:
   type: int
@@ -40,11 +40,11 @@ input_dim:
   help: dimension of input data
 output_dim:
   type: int
-  default: 2
+  default: 1
   help: dimension of output data
 predictor_attributes:
   type: list
-  default: ['Pressure','Temperature']
+  default: [Temperature]
   help: attributes being predicted
 embed_dim:
   type: int
@@ -76,15 +76,15 @@ batch_size:
   help: size of batches for training
 epochs:
   type: int
-  default: 3
+  default: 70
   help: number of training epochs
 lr_init:
   type: float
-  default: 0.1 #0.003
+  default: 0.1
   help: initial learning rate
 lr_decay:
   type: bool
-  default: false
+  default: true
   help: whether to use learning rate decay
 lr_decay_rate:
   type: float
@@ -92,7 +92,8 @@ lr_decay_rate:
   help: learning rate decay rate
 lr_decay_step:
   type: list
-  default: [5, 20, 40, 70]
+  default: [10, 30, 40, 60]
+ # default: [3,5,6,8]
   help: learning rate decay steps
 early_stop:
   type: bool

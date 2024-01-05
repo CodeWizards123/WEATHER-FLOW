@@ -86,6 +86,8 @@ class NormScaler:
     #     return data
     def inverse_transform(self, data):
         data = data.cpu()
+        # return ((data * (self.max - self.min)) + self.min).detach().numpy()
+
         return (data * (self.max - self.min)) + self.min
 
 
