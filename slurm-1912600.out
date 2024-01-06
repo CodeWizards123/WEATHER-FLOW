@@ -1,0 +1,20 @@
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "en_ZA.utf-8"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
+/var/tmp/slurmd.spool/job1912600/slurm_script: line 8: nvcc: command not found
+Loading python/miniconda3-py38-usr-A
+  Loading requirement: compilers/gcc820 mpi/openmpi-4.0.1
+Training AGCRN for horizons:16   split:0
+Traceback (most recent call last):
+  File "runAGCRN.py", line 18, in <module>
+    agcrn_trainer.execute()
+  File "/home/gbxade002/WEATHER-FLOW/Execute/agcrnExecute.py", line 51, in execute
+    self.prep_split_data(forecast_len, split)
+  File "/home/gbxade002/WEATHER-FLOW/Execute/agcrnExecute.py", line 266, in prep_split_data
+    increments = self.sharedConfig['increment']['default']
+KeyError: 'default'

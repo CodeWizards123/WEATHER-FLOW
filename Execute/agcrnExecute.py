@@ -21,7 +21,7 @@ import Utils.gwnUtils as gwnUtil
 from Execute.modelExecute import modelExecute
 from Logs.modelLogger import modelLogger 
 import csv
-torch.set_num_threads(4)
+# torch.set_num_threads(4)
 
 
 class agcrnExecute(modelExecute):
@@ -146,10 +146,33 @@ class agcrnExecute(modelExecute):
                 sharedUtil.create_file_if_not_exists(self.fileDictionary["targetFile_val"])
                 sharedUtil.create_file_if_not_exists(self.fileDictionary["predFile_val"])
 
-                np.save(self.fileDictionary["targetFile_train"], y_true_train)
-                np.save(self.fileDictionary["predFile_train"], y_pred_train.detach().numpy())
-                np.save(self.fileDictionary["targetFile_val"], y_true_train)
-                np.save(self.fileDictionary["predFile_val"], y_pred_train.detach().numpy())
+                # Ensure the tensor is on the CPU
+                y_true_train_cpu = y_true_train.cpu() if y_true_train.is_cuda else y_true_train
+		# Now save it with numpy
+                np.save(self.fileDictionary["targetFile_train"], y_true_train_cpu)
+
+                # Ensure the tensor is on the CPU
+                y_pred_train_cpu = y_pred_train.cpu() if y_pred_train.is_cuda else y_pred_train
+               	# Now save it with numpy
+               	np.save(self.fileDictionary["targetFile_train"], y_pred_train_cpu.detach().numpy())
+
+
+                # Ensure the tensor is on the CPU
+                y_true_val_cpu = y_true_val.cpu() if y_true_val.is_cuda else y_true_val
+               	# Now save it with numpy
+               	np.save(self.fileDictionary["targetFile_val"], y_true_val_cpu)
+
+               	# Ensure the tensor is on the CPU
+                y_pred_val_cpu = y_pred_val.cpu() if y_pred_val.is_cuda else y_pred_val
+                # Now save it with numpy
+                np.save(self.fileDictionary["targetFile_val"], y_pred_val_cpu.detach().numpy())
+
+
+
+		# np.save(self.fileDictionary["targetFile_train"], y_true_train)
+                # np.save(self.fileDictionary["predFile_train"], y_pred_train.detach().numpy())
+                # np.save(self.fileDictionary["targetFile_val"], y_true_val)
+                # np.save(self.fileDictionary["predFile_val"], y_pred_val.detach().numpy())
 
 
 
@@ -187,7 +210,7 @@ class agcrnExecute(modelExecute):
                 data = data[..., :self.modelConfig['input_dim']['default']]  
                 label = target[..., :self.modelConfig['output_dim']['default']]   
                 output = self.model(data, target, teacher_forcing_ratio=0.)
-                loss = self.loss(output.cpu(), label) #change
+                loss = self.loss(output.cuda(), label) #change
                 #a whole batch of Metr_LA is filtered
                 if not torch.isnan(loss):
                     total_val_loss += loss.item()
@@ -228,7 +251,7 @@ class agcrnExecute(modelExecute):
             #data and target shape: B, T, N, F; output shape: B, T, N, F
             output = self.model(data, target, teacher_forcing_ratio=teacher_forcing_ratio)
 
-            loss = self.loss(output.cpu(), label) #change
+            loss = self.loss(output.cuda(), label) #change
             loss.backward()
 
             # add max grad clipping

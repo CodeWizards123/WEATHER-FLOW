@@ -1,0 +1,36 @@
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "en_ZA.utf-8"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
+/var/tmp/slurmd.spool/job1912604/slurm_script: line 8: nvcc: command not found
+Loading python/miniconda3-py38-usr-A
+  Loading requirement: compilers/gcc820 mpi/openmpi-4.0.1
+Training AGCRN for horizons:16   split:0
+Data Shape:   (113929, 45, 6)
+Train:  (461, 24, 45, 6) (461, 16, 45, 1)
+Val:  (261, 24, 45, 6) (261, 16, 45, 1)
+Test:  (161, 24, 45, 6) (161, 16, 45, 1)
+Applying learning rate decay.
+Train Epoch 1: 0/14 Loss: 0.296492
+**********Train Epoch 1: averaged Loss: 0.571058, tf_ratio: 1.000000
+**********Val Epoch 1: average Loss: 0.278972
+*********************************Current best model saved!
+Traceback (most recent call last):
+  File "runAGCRN.py", line 18, in <module>
+    agcrn_trainer.execute()
+  File "/home/gbxade002/WEATHER-FLOW/Execute/agcrnExecute.py", line 54, in execute
+    self.execute_split(self.fileDictionary)         #execute the current split
+  File "/home/gbxade002/WEATHER-FLOW/Execute/agcrnExecute.py", line 157, in execute_split
+    np.save(self.fileDictionary["targetFile_train"], y_pred_train_cpu)
+  File "<__array_function__ internals>", line 5, in save
+  File "/home/gbxade002/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 528, in save
+    arr = np.asanyarray(arr)
+  File "/home/gbxade002/.local/lib/python3.8/site-packages/numpy/core/_asarray.py", line 171, in asanyarray
+    return array(a, dtype, copy=False, order=order, subok=True)
+  File "/home/gbxade002/.local/lib/python3.8/site-packages/torch/_tensor.py", line 956, in __array__
+    return self.numpy()
+RuntimeError: Can't call numpy() on Tensor that requires grad. Use tensor.detach().numpy() instead.
