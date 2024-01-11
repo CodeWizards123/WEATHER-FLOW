@@ -21,6 +21,20 @@ class tcnExecute(modelExecute):
         # physical_devices = tf.config.list_physical_devices('CPU') #CPU
         # tf.config.experimental.set_memory_growth(physical_devices[0], enable=True)
 
+        # List all available GPUs
+        physical_devices = tf.config.list_physical_devices('GPU')
+
+        if physical_devices:
+            # If GPUs are available, enable memory growth on the first GPU
+            try:
+                 tf.config.experimental.set_memory_growth(physical_devices[0], True)
+                 print("Running on GPU:", physical_devices[0])
+            except RuntimeError as e:
+                 # Memory growth must be set before initializing the GPUs
+                 print(e)
+        else:
+             print("No GPU available, running on CPU")
+
         increment = self.sharedConfig['increment']['default']
         stations = self.sharedConfig['stations']['default']
         forecasting_horizons = self.sharedConfig['horizons']['default']
@@ -117,7 +131,7 @@ class tcnExecute(modelExecute):
                                                     patience=self.modelConfig['patience']['default'], save=saveFile, optimizer=opt)
                         # Training the model
                         model, history = tcn_model.temperature_model()
-                        model.summary()
+                        # model.summary()
                         # validation and train loss to dataframe
                         lossDF = lossDF.append([[history.history['loss'], history.history['val_loss']]])
                         self.model_logger.info("Loss: " + str(history.history['loss']) )
