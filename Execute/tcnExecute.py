@@ -9,7 +9,6 @@ import os
 from Logs.modelLogger import modelLogger
 from Execute.modelExecute import modelExecute
 from datetime import datetime,timedelta
-import numpy as np
 tf.config.threading.set_intra_op_parallelism_threads(24)
 tf.config.threading.set_inter_op_parallelism_threads(24)
 
@@ -81,13 +80,9 @@ class tcnExecute(modelExecute):
                     # train, validation, test = utils.min_max(pre_standardize_train,
                     #                     pre_standardize_validation,
                     #                     pre_standardize_test, allDataTrain)
-
                     train, validation, test = utils.min_max(pre_standardize_train,
                                                             pre_standardize_validation,
                                                             pre_standardize_test)
-
-            
-
                     # Defining input shape
                     n_ft = train.shape[1]
                     # Creating the X and Y for forecasting, validation set and training
@@ -111,8 +106,6 @@ class tcnExecute(modelExecute):
                         else: loss_function = 'MSE'
                     # Creating the tcn model for temperature prediction
                     if layers == 1:
-                        print("this is n_ahead")
-                        print(str(n_ahead_length))
                         tcn_model = tcn_one.temporalcn(x_train=X_train, y_train=Y_train, x_val=X_val, y_val=Y_val,
                                                     n_lag=lag_length, n_features=n_ft, n_ahead=n_ahead_length,
                                                     epochs=self.modelConfig['epochs']['default'], batch_size=self.modelConfig['batch_size']['default'], 
@@ -123,7 +116,6 @@ class tcnExecute(modelExecute):
                                                     dilations=self.modelConfig['dilations']['default'], padding=self.modelConfig['padding']['default'], dropout=dropout,
                                                     patience=self.modelConfig['patience']['default'], save=saveFile, optimizer=opt)
                         # Training the model
-                        
                         model, history = tcn_model.temperature_model()
                         model.summary()
                         # validation and train loss to dataframe
@@ -135,14 +127,6 @@ class tcnExecute(modelExecute):
                         model = load_model(saveFile, custom_objects={'TCN': TCN})
                         # Test the model and write to file
                         yhat = model.predict(X_test)
-                        print("this is shh")
-                        print(yhat)
-                        print(yhat.shape)
-                        print("this is shh2")
-                        print(Y_test)
-                        print(Y_test.shape)
-                        np.save(resultsFile, yhat)
-                        np.save(targetFile, Y_test)
                         # predictions to dataframe
                         resultsDF = pd.concat([resultsDF, pd.Series(yhat.reshape(-1, ))])
                         
@@ -171,8 +155,7 @@ class tcnExecute(modelExecute):
                         # Test the model and write to file
                         yhat = model.predict(X_test)
                         # predictions to dataframe
-                        # resultsDF = pd.concat([resultsDF, pd.Series(yhat.reshape(-1, ))])
-                        resultsDF = pd.concat([resultsDF, pd.Series(yhat)])
+                        resultsDF = pd.concat([resultsDF, pd.Series(yhat.reshape(-1, ))])
                         
                         # self.save_actual_vs_predicted(Y_test, yhat, station,forecast_len)
 
@@ -246,11 +229,11 @@ class tcnExecute(modelExecute):
 
         target_path = f'{base_path}/Targets/'
         os.makedirs(target_path, exist_ok=True)
-        targetFile = f'{target_path}target_'+ str(k)
+        targetFile = f'{target_path}target_'+ str(k) +'.csv'
 
         result_path = f'{base_path}/Predictions/'
         os.makedirs(result_path, exist_ok=True)
-        resultsFile = f'{result_path}result_'+ str(k)
+        resultsFile = f'{result_path}result_'+ str(k)  +'.csv'
 
         loss_path = f'{base_path}/Predictions/'
         os.makedirs(loss_path, exist_ok=True)

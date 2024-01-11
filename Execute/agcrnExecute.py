@@ -155,13 +155,13 @@ class agcrnExecute(modelExecute):
                 # Ensure the tensor is on the CPU
                 y_pred_train_cpu = y_pred_train.cpu() if y_pred_train.is_cuda else y_pred_train
                	# Now save it with numpy
-               	np.save(self.fileDictionary["targetFile_train"], y_pred_train_cpu.detach().numpy())
+                np.save(self.fileDictionary["targetFile_train"], y_pred_train_cpu.detach().numpy())
 
 
                 # Ensure the tensor is on the CPU
                 y_true_val_cpu = y_true_val.cpu() if y_true_val.is_cuda else y_true_val
                	# Now save it with numpy
-               	np.save(self.fileDictionary["targetFile_val"], y_true_val_cpu)
+                np.save(self.fileDictionary["targetFile_val"], y_true_val_cpu)
 
                	# Ensure the tensor is on the CPU
                 y_pred_val_cpu = y_pred_val.cpu() if y_pred_val.is_cuda else y_pred_val

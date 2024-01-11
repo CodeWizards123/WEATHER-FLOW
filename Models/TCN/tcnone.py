@@ -1,6 +1,6 @@
 import tensorflow as tf
 from keras.models import Sequential
-from keras.layers import Dense, Reshape, Flatten
+from keras.layers import Dense
 from tcn import TCN
 from tensorflow import keras
 from keras.callbacks import ModelCheckpoint, EarlyStopping
@@ -13,8 +13,6 @@ class temporalcn:
     def __init__(self, x_train, y_train, x_val, y_val, n_lag, n_features, n_ahead, epochs, batch_size,
                  act_func, loss, learning_rate, batch_norm, layer_norm, weight_norm, kernel,
                  filters, dilations, padding, dropout, patience, save, optimizer):
-        print("22")
-        print(n_ahead)
         """"
         Initialize a temporalcn object.
 
@@ -82,24 +80,16 @@ class temporalcn:
             input_shape=(self.n_lag, self.n_features),
             activation=self.act_func,
             nb_filters=self.filters,
-          
             kernel_size=self.kernel,
             dilations=self.dilations,
             dropout_rate=self.dropout,
             use_batch_norm=self.batch_norm,
             use_weight_norm=self.weight_norm,
             use_layer_norm=self.layer_norm,
-            return_sequences=False,  # Ensure TCN returns sequences
+            return_sequences=False,
             padding=self.padding
         ))
-        self.n_output_features=2
-        # model.add(Flatten())
-
-        # Add a Dense layer to produce the desired number of total outputs
-        model.add(Dense(self.n_ahead * self.n_output_features, activation="linear"))
-
-        # Reshape the output back into a sequence
-        model.add(Reshape((self.n_ahead, self.n_output_features)))
+        model.add(Dense(self.n_ahead, activation="linear"))
 
         # Configure optimizer and compile the model
         if (self.optimizer == 'SGD'):

@@ -72,23 +72,19 @@ def min_max(train, validation, test):
     norm = MinMaxScaler().fit(train)
     # norm = MinMaxScaler().fit(allDataTrain)
 
-    # print("this is zulu0")
-    # print(test)
 
     train_data = norm.transform(train)
     val_data = norm.transform(validation)
     test_data = norm.transform(test)
 
-    train_data = norm.inverse_transform(train_data)
-    val_data = norm.inverse_transform(val_data)
-    test_data = norm.inverse_transform(test_data)
+    # train_data = norm.inverse_transform(train_data)
+    # val_data = norm.inverse_transform(val_data)
+    # test_data = norm.inverse_transform(test_data)
 
-    print("this is zulu1")
-    print(test_data)
     return train_data, val_data, test_data
 
 
-def create_X_Y(ts: np.array, lag=1, n_ahead=1, target_indices=[0, 1]):
+def create_X_Y(ts: np.array, lag=1, n_ahead=1, target_index=0):
     """
     A method to create X and Y matrix from a time series array.
     Parameters:
@@ -106,22 +102,14 @@ def create_X_Y(ts: np.array, lag=1, n_ahead=1, target_indices=[0, 1]):
         X.append(ts)
     else:
         for i in range(len(ts) - lag - n_ahead):
-            # print("one")
-            # print(ts[(i + lag):(i + lag + n_ahead)])
-            # print("two")
-            # print(ts[(i + lag):(i + lag + n_ahead), target_indices])
-            # print()
-            Y.append(ts[(i + lag):(i + lag + n_ahead), target_indices])
+            Y.append(ts[(i + lag):(i + lag + n_ahead), target_index])
             X.append(ts[i:(i + lag)])
 
     X, Y = np.array(X), np.array(Y)
 
     X = np.reshape(X, (X.shape[0], lag, n_features))
     x, y = shuffle(X, Y, random_state=0)
-    print("this is x")
-    print(x.shape)
-    print("this is y")
-    print(y.shape)
+
 
     return x, y
 
