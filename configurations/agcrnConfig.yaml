@@ -80,11 +80,11 @@ epochs:
   help: number of training epochs
 lr_init:
   type: float
-  default: 0.1
+  default: 0.003
   help: initial learning rate
 lr_decay:
   type: bool
-  default: true
+  default: false
   help: whether to use learning rate decay
 lr_decay_rate:
   type: float
@@ -92,7 +92,7 @@ lr_decay_rate:
   help: learning rate decay rate
 lr_decay_step:
   type: list
-  default: [10, 30, 40, 60]
+  default: [50, 60, 70, 80]
  # default: [3,5,6,8]
   help: learning rate decay steps
 early_stop:

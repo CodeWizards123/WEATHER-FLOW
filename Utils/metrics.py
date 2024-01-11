@@ -3,7 +3,7 @@ from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_error
 import math
 
-def smape(actual, predicted):
+def smape(actual, predicted, epsilon=1e-5):
     """
     Calculates the SMAPE metric
     Parameters:
@@ -13,7 +13,12 @@ def smape(actual, predicted):
         smape - returns smape metric
     """
 
-    return np.mean(abs(predicted - actual) / ((abs(predicted) + abs(actual)) / 2)) * 100
+    # return np.mean(abs(predicted - actual) / ((abs(predicted) + abs(actual)) / 2)) * 100
+
+    denominator = (np.abs(predicted) + np.abs(actual)) / 2
+    # Avoid division by zero
+    denominator = np.where(denominator == 0, epsilon, denominator)
+    return np.mean(np.abs(predicted - actual) / denominator) * 100
 
 def ZeroAdjustedSMAPE(y_true, y_pred, epsilon=1e-6):
     """

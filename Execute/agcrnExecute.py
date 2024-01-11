@@ -21,7 +21,7 @@ import Utils.gwnUtils as gwnUtil
 from Execute.modelExecute import modelExecute
 from Logs.modelLogger import modelLogger 
 import csv
-# torch.set_num_threads(4)
+torch.set_num_threads(4)
 
 
 class agcrnExecute(modelExecute):
@@ -84,11 +84,12 @@ class agcrnExecute(modelExecute):
                                     weight_decay=0, amsgrad=False)
         #learning rate decay
         lr_scheduler = None
-        print('Applying learning rate decay.')
-        lr_decay_steps = [int(i) for i in self.modelConfig['lr_decay_step']['default']]
+        if self.modelConfig['lr_decay']['default']:
+          print('Applying learning rate decay.')
+          lr_decay_steps = [int(i) for i in self.modelConfig['lr_decay_step']['default']]
 
-        # lr_decay_steps = [int(i) for i in list(self.modelConfig['lr_decay_step']['default'].split(','))]
-        lr_scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer=optimizer,
+          # lr_decay_steps = [int(i) for i in list(self.modelConfig['lr_decay_step']['default'].split(','))]
+          lr_scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer=optimizer,
                                                             milestones=lr_decay_steps,
                                                             gamma=self.modelConfig['lr_decay_rate']['default'])
 

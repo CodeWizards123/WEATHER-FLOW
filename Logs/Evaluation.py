@@ -266,9 +266,11 @@ def AgcrnEval(modelConfig,sharedConfig):
                     for i in range(45):
                         station_pred = y_pred[:, :, i, attribute]
                         station_true = y_true[:, :, i, attribute]
-                        # print(station_pred)
+                        print('this is y preds')
+                        print(station_pred)
                         print("Evaluating horizon:"+ str(horizon) + " split:" + str(k) + " for station:" + stations[i])
-                        # print(station_pred)
+                        print('this is y true')
+                        print(station_true)
 
                         rmse =  metrics.rmse(station_true, station_pred)
                         mse = metrics.mse(station_true, station_pred)
