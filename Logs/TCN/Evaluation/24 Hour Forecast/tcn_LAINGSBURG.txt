@@ -27,3 +27,57 @@
 2023-09-04 11:30:54,654 - LAINGSBURG - INFO - This is the smape_std_dev: 13.231134128449138
 
 2023-09-04 11:30:54,654 - LAINGSBURG - INFO - TCN evaluation of LAINGSBURG for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:15,095 - LAINGSBURG - INFO - TCN evaluation started atLAINGSBURG for the horizon of 24 for split 0
+2024-01-13 08:05:15,478 - LAINGSBURG - INFO - actual vs prediced is :          Actual  Predicted
+0       0.660088   0.648046
+1       0.620614   0.619485
+2       0.570175   0.594184
+3       0.541667   0.572671
+4       0.541667   0.554935
+...          ...        ...
+208531  0.528509   0.544976
+208532  0.528509   0.546266
+208533  0.489035   0.534683
+208534  0.462719   0.511408
+208535  0.438596   0.480019
+
+[208536 rows x 2 columns]
+2024-01-13 08:05:15,479 - LAINGSBURG - INFO - saved to file :Results/TCN/24 Hour Forecast/LAINGSBURG/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:15,481 - LAINGSBURG - INFO - This is the mse: 0.0026060853724063494
+
+2024-01-13 08:05:15,482 - LAINGSBURG - INFO - This is the rmse: 0.05104983224660341
+
+2024-01-13 08:05:15,482 - LAINGSBURG - INFO - This is the mae: 0.03785818750069473
+
+2024-01-13 08:05:15,483 - LAINGSBURG - INFO - This is the smape: 9.378630219658628
+
+2024-01-13 08:05:15,483 - LAINGSBURG - INFO - This is the smape_std_dev: 10.449435292335645
+
+2024-01-13 08:05:15,484 - LAINGSBURG - INFO - TCN evaluation of LAINGSBURG for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:35,887 - LAINGSBURG - INFO - TCN evaluation started atLAINGSBURG for the horizon of 24 for split 0
+2024-01-14 17:17:36,096 - LAINGSBURG - INFO - actual vs prediced is :          Actual  Predicted
+0       0.359649   0.357959
+1       0.357456   0.349845
+2       0.355263   0.344508
+3       0.346491   0.341033
+4       0.337719   0.344177
+...          ...        ...
+207955  0.559211   0.579531
+207956  0.565789   0.577255
+207957  0.559211   0.558536
+207958  0.519737   0.528309
+207959  0.462719   0.488555
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:36,097 - LAINGSBURG - INFO - saved to file :Results/TCN/24 Hour Forecast/LAINGSBURG/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:36,098 - LAINGSBURG - INFO - This is the mse: 0.00247762351242448
+
+2024-01-14 17:17:36,098 - LAINGSBURG - INFO - This is the rmse: 0.049775732163620454
+
+2024-01-14 17:17:36,099 - LAINGSBURG - INFO - This is the mae: 0.0367307229667086
+
+2024-01-14 17:17:36,099 - LAINGSBURG - INFO - This is the smape: 9.158571384740236
+
+2024-01-14 17:17:36,100 - LAINGSBURG - INFO - This is the smape_std_dev: 10.350668523421147
+
+2024-01-14 17:17:36,101 - LAINGSBURG - INFO - TCN evaluation of LAINGSBURG for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt

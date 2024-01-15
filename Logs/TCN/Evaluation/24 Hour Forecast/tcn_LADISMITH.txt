@@ -27,3 +27,57 @@
 2023-09-04 11:30:54,540 - LADISMITH - INFO - This is the smape_std_dev: 13.93696734011932
 
 2023-09-04 11:30:54,541 - LADISMITH - INFO - TCN evaluation of LADISMITH for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:14,712 - LADISMITH - INFO - TCN evaluation started atLADISMITH for the horizon of 24 for split 0
+2024-01-13 08:05:15,086 - LADISMITH - INFO - actual vs prediced is :          Actual  Predicted
+0       0.341860   0.325050
+1       0.344186   0.314654
+2       0.346512   0.307754
+3       0.337209   0.307250
+4       0.323256   0.317365
+...          ...        ...
+207955  0.590698   0.579644
+207956  0.593023   0.573017
+207957  0.609302   0.544724
+207958  0.467442   0.499107
+207959  0.413953   0.449535
+
+[207960 rows x 2 columns]
+2024-01-13 08:05:15,088 - LADISMITH - INFO - saved to file :Results/TCN/24 Hour Forecast/LADISMITH/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:15,089 - LADISMITH - INFO - This is the mse: 0.0034878377359156294
+
+2024-01-13 08:05:15,090 - LADISMITH - INFO - This is the rmse: 0.059057918486140615
+
+2024-01-13 08:05:15,091 - LADISMITH - INFO - This is the mae: 0.04383365829400366
+
+2024-01-13 08:05:15,091 - LADISMITH - INFO - This is the smape: 11.010721886915498
+
+2024-01-13 08:05:15,092 - LADISMITH - INFO - This is the smape_std_dev: 10.84219238402435
+
+2024-01-13 08:05:15,093 - LADISMITH - INFO - TCN evaluation of LADISMITH for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:35,712 - LADISMITH - INFO - TCN evaluation started atLADISMITH for the horizon of 24 for split 0
+2024-01-14 17:17:35,880 - LADISMITH - INFO - actual vs prediced is :          Actual  Predicted
+0       0.341860   0.328780
+1       0.344186   0.312723
+2       0.346512   0.305734
+3       0.337209   0.304024
+4       0.323256   0.317938
+...          ...        ...
+207955  0.590698   0.578079
+207956  0.593023   0.566953
+207957  0.609302   0.536520
+207958  0.467442   0.487504
+207959  0.413953   0.433526
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:35,881 - LADISMITH - INFO - saved to file :Results/TCN/24 Hour Forecast/LADISMITH/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:35,882 - LADISMITH - INFO - This is the mse: 0.0035055894567065683
+
+2024-01-14 17:17:35,883 - LADISMITH - INFO - This is the rmse: 0.05920801851697596
+
+2024-01-14 17:17:35,884 - LADISMITH - INFO - This is the mae: 0.04364237858095352
+
+2024-01-14 17:17:35,884 - LADISMITH - INFO - This is the smape: 10.915842946776607
+
+2024-01-14 17:17:35,884 - LADISMITH - INFO - This is the smape_std_dev: 10.789766784550288
+
+2024-01-14 17:17:35,886 - LADISMITH - INFO - TCN evaluation of LADISMITH for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt

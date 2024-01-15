@@ -27,3 +27,57 @@
 2023-09-04 11:30:52,221 - ALEXANDERBAAI - INFO - This is the smape_std_dev: 14.645625729215759
 
 2023-09-04 11:30:52,222 - ALEXANDERBAAI - INFO - TCN evaluation of ALEXANDERBAAI for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:08,654 - ALEXANDERBAAI - INFO - TCN evaluation started atALEXANDERBAAI for the horizon of 24 for split 0
+2024-01-13 08:05:08,984 - ALEXANDERBAAI - INFO - actual vs prediced is :        Actual  Predicted
+0       0.2825   0.282239
+1       0.2725   0.272634
+2       0.2625   0.263300
+3       0.2575   0.261301
+4       0.2475   0.268725
+...        ...        ...
+207955  0.8350   0.479424
+207956  0.7275   0.457425
+207957  0.6975   0.425893
+207958  0.4950   0.390831
+207959  0.3900   0.351948
+
+[207960 rows x 2 columns]
+2024-01-13 08:05:08,985 - ALEXANDERBAAI - INFO - saved to file :Results/TCN/24 Hour Forecast/ALEXANDERBAAI/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:08,986 - ALEXANDERBAAI - INFO - This is the mse: 0.002910883900522832
+
+2024-01-13 08:05:08,986 - ALEXANDERBAAI - INFO - This is the rmse: 0.05395260791215594
+
+2024-01-13 08:05:08,987 - ALEXANDERBAAI - INFO - This is the mae: 0.03555262741799385
+
+2024-01-13 08:05:08,987 - ALEXANDERBAAI - INFO - This is the smape: 10.373576214981012
+
+2024-01-13 08:05:08,988 - ALEXANDERBAAI - INFO - This is the smape_std_dev: 11.375804833783736
+
+2024-01-13 08:05:08,989 - ALEXANDERBAAI - INFO - TCN evaluation of ALEXANDERBAAI for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:31,907 - ALEXANDERBAAI - INFO - TCN evaluation started atALEXANDERBAAI for the horizon of 24 for split 0
+2024-01-14 17:17:32,155 - ALEXANDERBAAI - INFO - actual vs prediced is :        Actual  Predicted
+0       0.2825   0.290231
+1       0.2725   0.276573
+2       0.2625   0.263934
+3       0.2575   0.259173
+4       0.2475   0.264953
+...        ...        ...
+207955  0.8350   0.503999
+207956  0.7275   0.476936
+207957  0.6975   0.438022
+207958  0.4950   0.392133
+207959  0.3900   0.348763
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:32,156 - ALEXANDERBAAI - INFO - saved to file :Results/TCN/24 Hour Forecast/ALEXANDERBAAI/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:32,158 - ALEXANDERBAAI - INFO - This is the mse: 0.0029785363571521997
+
+2024-01-14 17:17:32,159 - ALEXANDERBAAI - INFO - This is the rmse: 0.054575968678093105
+
+2024-01-14 17:17:32,159 - ALEXANDERBAAI - INFO - This is the mae: 0.03594443733351125
+
+2024-01-14 17:17:32,160 - ALEXANDERBAAI - INFO - This is the smape: 10.488506725426616
+
+2024-01-14 17:17:32,161 - ALEXANDERBAAI - INFO - This is the smape_std_dev: 11.527627413636223
+
+2024-01-14 17:17:32,162 - ALEXANDERBAAI - INFO - TCN evaluation of ALEXANDERBAAI for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt

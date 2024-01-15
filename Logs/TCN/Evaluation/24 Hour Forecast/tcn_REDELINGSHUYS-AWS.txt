@@ -27,3 +27,57 @@
 2023-09-04 11:30:56,674 - REDELINGSHUYS-AWS - INFO - This is the smape_std_dev: 12.66382846712332
 
 2023-09-04 11:30:56,675 - REDELINGSHUYS-AWS - INFO - TCN evaluation of REDELINGSHUYS-AWS for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:20,053 - REDELINGSHUYS-AWS - INFO - TCN evaluation started atREDELINGSHUYS-AWS for the horizon of 24 for split 0
+2024-01-13 08:05:20,374 - REDELINGSHUYS-AWS - INFO - actual vs prediced is :          Actual  Predicted
+0       0.277328   0.292117
+1       0.265182   0.264995
+2       0.253036   0.253172
+3       0.230769   0.264846
+4       0.232794   0.306544
+...          ...        ...
+207955  0.730769   0.680010
+207956  0.736842   0.650366
+207957  0.696356   0.606974
+207958  0.578947   0.549014
+207959  0.473684   0.485793
+
+[207960 rows x 2 columns]
+2024-01-13 08:05:20,375 - REDELINGSHUYS-AWS - INFO - saved to file :Results/TCN/24 Hour Forecast/REDELINGSHUYS-AWS/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:20,377 - REDELINGSHUYS-AWS - INFO - This is the mse: 0.0033843576680945156
+
+2024-01-13 08:05:20,377 - REDELINGSHUYS-AWS - INFO - This is the rmse: 0.05817523242836693
+
+2024-01-13 08:05:20,378 - REDELINGSHUYS-AWS - INFO - This is the mae: 0.0438010513156863
+
+2024-01-13 08:05:20,378 - REDELINGSHUYS-AWS - INFO - This is the smape: 11.42802118668689
+
+2024-01-13 08:05:20,379 - REDELINGSHUYS-AWS - INFO - This is the smape_std_dev: 12.4523744631406
+
+2024-01-13 08:05:20,380 - REDELINGSHUYS-AWS - INFO - TCN evaluation of REDELINGSHUYS-AWS for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:38,667 - REDELINGSHUYS-AWS - INFO - TCN evaluation started atREDELINGSHUYS-AWS for the horizon of 24 for split 0
+2024-01-14 17:17:38,858 - REDELINGSHUYS-AWS - INFO - actual vs prediced is :          Actual  Predicted
+0       0.277328   0.292360
+1       0.265182   0.270189
+2       0.253036   0.256616
+3       0.230769   0.265401
+4       0.232794   0.305548
+...          ...        ...
+207955  0.730769   0.694388
+207956  0.736842   0.669282
+207957  0.696356   0.626170
+207958  0.578947   0.567268
+207959  0.473684   0.504487
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:38,859 - REDELINGSHUYS-AWS - INFO - saved to file :Results/TCN/24 Hour Forecast/REDELINGSHUYS-AWS/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:38,861 - REDELINGSHUYS-AWS - INFO - This is the mse: 0.003111480189899751
+
+2024-01-14 17:17:38,862 - REDELINGSHUYS-AWS - INFO - This is the rmse: 0.055780643505608206
+
+2024-01-14 17:17:38,862 - REDELINGSHUYS-AWS - INFO - This is the mae: 0.04175928555782268
+
+2024-01-14 17:17:38,863 - REDELINGSHUYS-AWS - INFO - This is the smape: 10.877008858447452
+
+2024-01-14 17:17:38,863 - REDELINGSHUYS-AWS - INFO - This is the smape_std_dev: 11.801148478431358
+
+2024-01-14 17:17:38,865 - REDELINGSHUYS-AWS - INFO - TCN evaluation of REDELINGSHUYS-AWS for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt

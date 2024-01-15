@@ -27,3 +27,57 @@
 2023-09-04 11:30:57,013 - SOMERSET EAST - INFO - This is the smape_std_dev: 10.911874877185884
 
 2023-09-04 11:30:57,013 - SOMERSET EAST - INFO - TCN evaluation of SOMERSET EAST for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:20,709 - SOMERSET EAST - INFO - TCN evaluation started atSOMERSET EAST for the horizon of 24 for split 0
+2024-01-13 08:05:21,018 - SOMERSET EAST - INFO - actual vs prediced is :          Actual  Predicted
+0       0.396794   0.412017
+1       0.386774   0.405066
+2       0.384770   0.400155
+3       0.388778   0.404980
+4       0.396794   0.408648
+...          ...        ...
+207955  0.561122   0.558563
+207956  0.565130   0.548493
+207957  0.519038   0.502545
+207958  0.450902   0.443186
+207959  0.412826   0.390113
+
+[207960 rows x 2 columns]
+2024-01-13 08:05:21,020 - SOMERSET EAST - INFO - saved to file :Results/TCN/24 Hour Forecast/SOMERSET EAST/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:21,022 - SOMERSET EAST - INFO - This is the mse: 0.00289246819242097
+
+2024-01-13 08:05:21,023 - SOMERSET EAST - INFO - This is the rmse: 0.053781671528699906
+
+2024-01-13 08:05:21,024 - SOMERSET EAST - INFO - This is the mae: 0.03981539118266346
+
+2024-01-13 08:05:21,024 - SOMERSET EAST - INFO - This is the smape: 9.119183777444926
+
+2024-01-13 08:05:21,025 - SOMERSET EAST - INFO - This is the smape_std_dev: 8.691355083046377
+
+2024-01-13 08:05:21,027 - SOMERSET EAST - INFO - TCN evaluation of SOMERSET EAST for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:39,065 - SOMERSET EAST - INFO - TCN evaluation started atSOMERSET EAST for the horizon of 24 for split 0
+2024-01-14 17:17:39,196 - SOMERSET EAST - INFO - actual vs prediced is :          Actual  Predicted
+0       0.396794   0.410591
+1       0.386774   0.403352
+2       0.384770   0.396331
+3       0.388778   0.392340
+4       0.396794   0.394425
+...          ...        ...
+207955  0.561122   0.542667
+207956  0.565130   0.530219
+207957  0.519038   0.500188
+207958  0.450902   0.463806
+207959  0.412826   0.423360
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:39,197 - SOMERSET EAST - INFO - saved to file :Results/TCN/24 Hour Forecast/SOMERSET EAST/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:39,198 - SOMERSET EAST - INFO - This is the mse: 0.002755728248748152
+
+2024-01-14 17:17:39,199 - SOMERSET EAST - INFO - This is the rmse: 0.05249503070527869
+
+2024-01-14 17:17:39,200 - SOMERSET EAST - INFO - This is the mae: 0.038961628545655
+
+2024-01-14 17:17:39,200 - SOMERSET EAST - INFO - This is the smape: 8.953877654263104
+
+2024-01-14 17:17:39,201 - SOMERSET EAST - INFO - This is the smape_std_dev: 8.618865155221648
+
+2024-01-14 17:17:39,202 - SOMERSET EAST - INFO - TCN evaluation of SOMERSET EAST for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt

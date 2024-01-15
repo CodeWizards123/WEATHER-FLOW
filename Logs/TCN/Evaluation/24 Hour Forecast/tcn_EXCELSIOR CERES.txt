@@ -27,3 +27,57 @@
 2023-09-04 11:30:53,482 - EXCELSIOR CERES - INFO - This is the smape_std_dev: 14.891756425614927
 
 2023-09-04 11:30:53,482 - EXCELSIOR CERES - INFO - TCN evaluation of EXCELSIOR CERES for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:11,742 - EXCELSIOR CERES - INFO - TCN evaluation started atEXCELSIOR CERES for the horizon of 24 for split 0
+2024-01-13 08:05:12,112 - EXCELSIOR CERES - INFO - actual vs prediced is :          Actual  Predicted
+0       0.312649   0.340921
+1       0.279236   0.326897
+2       0.284010   0.304740
+3       0.248210   0.296027
+4       0.300716   0.312034
+...          ...        ...
+207955  0.603819   0.611916
+207956  0.591885   0.596586
+207957  0.594272   0.566539
+207958  0.479714   0.521561
+207959  0.377088   0.456998
+
+[207960 rows x 2 columns]
+2024-01-13 08:05:12,113 - EXCELSIOR CERES - INFO - saved to file :Results/TCN/24 Hour Forecast/EXCELSIOR CERES/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:12,116 - EXCELSIOR CERES - INFO - This is the mse: 0.003093056868473546
+
+2024-01-13 08:05:12,117 - EXCELSIOR CERES - INFO - This is the rmse: 0.0556152575151239
+
+2024-01-13 08:05:12,118 - EXCELSIOR CERES - INFO - This is the mae: 0.042127543203567624
+
+2024-01-13 08:05:12,119 - EXCELSIOR CERES - INFO - This is the smape: 11.682997768305883
+
+2024-01-13 08:05:12,120 - EXCELSIOR CERES - INFO - This is the smape_std_dev: 13.305064411973497
+
+2024-01-13 08:05:12,121 - EXCELSIOR CERES - INFO - TCN evaluation of EXCELSIOR CERES for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:33,821 - EXCELSIOR CERES - INFO - TCN evaluation started atEXCELSIOR CERES for the horizon of 24 for split 0
+2024-01-14 17:17:34,044 - EXCELSIOR CERES - INFO - actual vs prediced is :          Actual  Predicted
+0       0.312649   0.348100
+1       0.279236   0.329192
+2       0.284010   0.320343
+3       0.248210   0.316335
+4       0.300716   0.330036
+...          ...        ...
+207955  0.603819   0.634229
+207956  0.591885   0.617896
+207957  0.594272   0.583181
+207958  0.479714   0.532960
+207959  0.377088   0.481897
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:34,045 - EXCELSIOR CERES - INFO - saved to file :Results/TCN/24 Hour Forecast/EXCELSIOR CERES/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:34,047 - EXCELSIOR CERES - INFO - This is the mse: 0.003098180324159251
+
+2024-01-14 17:17:34,048 - EXCELSIOR CERES - INFO - This is the rmse: 0.055661300058112644
+
+2024-01-14 17:17:34,049 - EXCELSIOR CERES - INFO - This is the mae: 0.042152418698492455
+
+2024-01-14 17:17:34,049 - EXCELSIOR CERES - INFO - This is the smape: 11.6797015641882
+
+2024-01-14 17:17:34,050 - EXCELSIOR CERES - INFO - This is the smape_std_dev: 13.330512612661988
+
+2024-01-14 17:17:34,052 - EXCELSIOR CERES - INFO - TCN evaluation of EXCELSIOR CERES for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt

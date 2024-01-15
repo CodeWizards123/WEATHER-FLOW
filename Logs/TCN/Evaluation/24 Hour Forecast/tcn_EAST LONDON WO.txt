@@ -27,3 +27,57 @@
 2023-09-04 11:30:53,355 - EAST LONDON WO - INFO - This is the smape_std_dev: 7.960408824062775
 
 2023-09-04 11:30:53,355 - EAST LONDON WO - INFO - TCN evaluation of EAST LONDON WO for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:11,384 - EAST LONDON WO - INFO - TCN evaluation started atEAST LONDON WO for the horizon of 24 for split 0
+2024-01-13 08:05:11,736 - EAST LONDON WO - INFO - actual vs prediced is :          Actual  Predicted
+0       0.326829   0.324480
+1       0.324390   0.340389
+2       0.317073   0.360304
+3       0.314634   0.384388
+4       0.314634   0.407552
+...          ...        ...
+207955  0.497561   0.507467
+207956  0.480488   0.486747
+207957  0.458537   0.465144
+207958  0.429268   0.442311
+207959  0.417073   0.423065
+
+[207960 rows x 2 columns]
+2024-01-13 08:05:11,737 - EAST LONDON WO - INFO - saved to file :Results/TCN/24 Hour Forecast/EAST LONDON WO/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:11,738 - EAST LONDON WO - INFO - This is the mse: 0.0024914895663020425
+
+2024-01-13 08:05:11,738 - EAST LONDON WO - INFO - This is the rmse: 0.04991482311199793
+
+2024-01-13 08:05:11,739 - EAST LONDON WO - INFO - This is the mae: 0.036673151074120725
+
+2024-01-13 08:05:11,739 - EAST LONDON WO - INFO - This is the smape: 7.900426553126977
+
+2024-01-13 08:05:11,740 - EAST LONDON WO - INFO - This is the smape_std_dev: 7.3499913609372305
+
+2024-01-13 08:05:11,741 - EAST LONDON WO - INFO - TCN evaluation of EAST LONDON WO for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:33,616 - EAST LONDON WO - INFO - TCN evaluation started atEAST LONDON WO for the horizon of 24 for split 0
+2024-01-14 17:17:33,807 - EAST LONDON WO - INFO - actual vs prediced is :          Actual  Predicted
+0       0.326829   0.320641
+1       0.324390   0.323204
+2       0.317073   0.336230
+3       0.314634   0.356301
+4       0.314634   0.387685
+...          ...        ...
+207955  0.497561   0.514847
+207956  0.480488   0.496684
+207957  0.458537   0.469918
+207958  0.429268   0.445760
+207959  0.417073   0.422490
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:33,809 - EAST LONDON WO - INFO - saved to file :Results/TCN/24 Hour Forecast/EAST LONDON WO/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:33,811 - EAST LONDON WO - INFO - This is the mse: 0.0024468182854024637
+
+2024-01-14 17:17:33,813 - EAST LONDON WO - INFO - This is the rmse: 0.04946532407052908
+
+2024-01-14 17:17:33,814 - EAST LONDON WO - INFO - This is the mae: 0.036115004891257234
+
+2024-01-14 17:17:33,815 - EAST LONDON WO - INFO - This is the smape: 7.771889166110004
+
+2024-01-14 17:17:33,816 - EAST LONDON WO - INFO - This is the smape_std_dev: 7.2520954804952495
+
+2024-01-14 17:17:33,818 - EAST LONDON WO - INFO - TCN evaluation of EAST LONDON WO for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt

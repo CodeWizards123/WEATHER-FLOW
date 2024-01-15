@@ -27,3 +27,57 @@
 2023-09-04 11:30:56,332 - PORTERVILLE - INFO - This is the smape_std_dev: 15.539316244046708
 
 2023-09-04 11:30:56,332 - PORTERVILLE - INFO - TCN evaluation of PORTERVILLE for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:19,366 - PORTERVILLE - INFO - TCN evaluation started atPORTERVILLE for the horizon of 24 for split 0
+2024-01-13 08:05:19,690 - PORTERVILLE - INFO - actual vs prediced is :          Actual  Predicted
+0       0.307692   0.283276
+1       0.303167   0.268788
+2       0.298643   0.266161
+3       0.298643   0.274570
+4       0.257919   0.307922
+...          ...        ...
+207955  0.653846   0.654763
+207956  0.658371   0.644322
+207957  0.640271   0.603401
+207958  0.538462   0.545712
+207959  0.468326   0.480491
+
+[207960 rows x 2 columns]
+2024-01-13 08:05:19,691 - PORTERVILLE - INFO - saved to file :Results/TCN/24 Hour Forecast/PORTERVILLE/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:19,692 - PORTERVILLE - INFO - This is the mse: 0.0031836797525506815
+
+2024-01-13 08:05:19,693 - PORTERVILLE - INFO - This is the rmse: 0.05642410612983321
+
+2024-01-13 08:05:19,694 - PORTERVILLE - INFO - This is the mae: 0.04198219950601817
+
+2024-01-13 08:05:19,694 - PORTERVILLE - INFO - This is the smape: 11.248169304459957
+
+2024-01-13 08:05:19,695 - PORTERVILLE - INFO - This is the smape_std_dev: 11.44727183598321
+
+2024-01-13 08:05:19,696 - PORTERVILLE - INFO - TCN evaluation of PORTERVILLE for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:38,276 - PORTERVILLE - INFO - TCN evaluation started atPORTERVILLE for the horizon of 24 for split 0
+2024-01-14 17:17:38,464 - PORTERVILLE - INFO - actual vs prediced is :          Actual  Predicted
+0       0.307692   0.298620
+1       0.303167   0.283898
+2       0.298643   0.273682
+3       0.298643   0.280390
+4       0.257919   0.314022
+...          ...        ...
+207955  0.653846   0.673604
+207956  0.658371   0.658231
+207957  0.640271   0.618520
+207958  0.538462   0.560423
+207959  0.468326   0.490920
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:38,465 - PORTERVILLE - INFO - saved to file :Results/TCN/24 Hour Forecast/PORTERVILLE/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:38,466 - PORTERVILLE - INFO - This is the mse: 0.0032771686635584127
+
+2024-01-14 17:17:38,467 - PORTERVILLE - INFO - This is the rmse: 0.05724656027708925
+
+2024-01-14 17:17:38,468 - PORTERVILLE - INFO - This is the mae: 0.04256752539547478
+
+2024-01-14 17:17:38,468 - PORTERVILLE - INFO - This is the smape: 11.407207456789829
+
+2024-01-14 17:17:38,469 - PORTERVILLE - INFO - This is the smape_std_dev: 11.613985705992086
+
+2024-01-14 17:17:38,470 - PORTERVILLE - INFO - TCN evaluation of PORTERVILLE for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt

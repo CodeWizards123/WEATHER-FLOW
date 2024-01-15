@@ -27,3 +27,57 @@
 2023-09-04 11:30:52,658 - BRANDVLEI - INFO - This is the smape_std_dev: 9.596769639504798
 
 2023-09-04 11:30:52,658 - BRANDVLEI - INFO - TCN evaluation of BRANDVLEI for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:09,697 - BRANDVLEI - INFO - TCN evaluation started atBRANDVLEI for the horizon of 24 for split 0
+2024-01-13 08:05:10,049 - BRANDVLEI - INFO - actual vs prediced is :          Actual  Predicted
+0       0.364372   0.365277
+1       0.338057   0.350482
+2       0.336032   0.334711
+3       0.323887   0.320698
+4       0.321862   0.331028
+...          ...        ...
+207955  0.580972   0.579730
+207956  0.591093   0.580630
+207957  0.591093   0.567331
+207958  0.566802   0.544956
+207959  0.508097   0.509874
+
+[207960 rows x 2 columns]
+2024-01-13 08:05:10,050 - BRANDVLEI - INFO - saved to file :Results/TCN/24 Hour Forecast/BRANDVLEI/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:10,051 - BRANDVLEI - INFO - This is the mse: 0.002471249771483427
+
+2024-01-13 08:05:10,051 - BRANDVLEI - INFO - This is the rmse: 0.04971166635190805
+
+2024-01-13 08:05:10,052 - BRANDVLEI - INFO - This is the mae: 0.037496703776923275
+
+2024-01-13 08:05:10,052 - BRANDVLEI - INFO - This is the smape: 8.862779068587821
+
+2024-01-13 08:05:10,053 - BRANDVLEI - INFO - This is the smape_std_dev: 8.969885150968876
+
+2024-01-13 08:05:10,054 - BRANDVLEI - INFO - TCN evaluation of BRANDVLEI for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:32,578 - BRANDVLEI - INFO - TCN evaluation started atBRANDVLEI for the horizon of 24 for split 0
+2024-01-14 17:17:32,782 - BRANDVLEI - INFO - actual vs prediced is :          Actual  Predicted
+0       0.364372   0.358508
+1       0.338057   0.342368
+2       0.336032   0.331502
+3       0.323887   0.325931
+4       0.321862   0.335560
+...          ...        ...
+207955  0.580972   0.584407
+207956  0.591093   0.579776
+207957  0.591093   0.561491
+207958  0.566802   0.530725
+207959  0.508097   0.495665
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:32,783 - BRANDVLEI - INFO - saved to file :Results/TCN/24 Hour Forecast/BRANDVLEI/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:32,784 - BRANDVLEI - INFO - This is the mse: 0.002324563800153265
+
+2024-01-14 17:17:32,785 - BRANDVLEI - INFO - This is the rmse: 0.04821373041109
+
+2024-01-14 17:17:32,786 - BRANDVLEI - INFO - This is the mae: 0.036324376945899566
+
+2024-01-14 17:17:32,786 - BRANDVLEI - INFO - This is the smape: 8.615027644597093
+
+2024-01-14 17:17:32,787 - BRANDVLEI - INFO - This is the smape_std_dev: 8.766897907216014
+
+2024-01-14 17:17:32,788 - BRANDVLEI - INFO - TCN evaluation of BRANDVLEI for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt

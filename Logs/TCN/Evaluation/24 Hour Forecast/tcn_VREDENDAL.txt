@@ -27,3 +27,57 @@
 2023-09-04 11:30:57,987 - VREDENDAL - INFO - This is the smape_std_dev: 13.538364492268197
 
 2023-09-04 11:30:57,988 - VREDENDAL - INFO - TCN evaluation of VREDENDAL for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:21,939 - VREDENDAL - INFO - TCN evaluation started atVREDENDAL for the horizon of 24 for split 0
+2024-01-13 08:05:22,049 - VREDENDAL - INFO - actual vs prediced is :          Actual  Predicted
+0       0.279318   0.298988
+1       0.257996   0.277716
+2       0.230277   0.258945
+3       0.217484   0.258233
+4       0.213220   0.276072
+...          ...        ...
+207955  0.671642   0.623057
+207956  0.675906   0.615190
+207957  0.665245   0.579511
+207958  0.601279   0.523766
+207959  0.518124   0.472417
+
+[207960 rows x 2 columns]
+2024-01-13 08:05:22,050 - VREDENDAL - INFO - saved to file :Results/TCN/24 Hour Forecast/VREDENDAL/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:22,051 - VREDENDAL - INFO - This is the mse: 0.002715375697847681
+
+2024-01-13 08:05:22,052 - VREDENDAL - INFO - This is the rmse: 0.052109266909520814
+
+2024-01-13 08:05:22,053 - VREDENDAL - INFO - This is the mae: 0.038462093409002106
+
+2024-01-13 08:05:22,053 - VREDENDAL - INFO - This is the smape: 10.691999509981171
+
+2024-01-13 08:05:22,054 - VREDENDAL - INFO - This is the smape_std_dev: 10.954739668537501
+
+2024-01-13 08:05:22,055 - VREDENDAL - INFO - TCN evaluation of VREDENDAL for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:40,000 - VREDENDAL - INFO - TCN evaluation started atVREDENDAL for the horizon of 24 for split 0
+2024-01-14 17:17:40,122 - VREDENDAL - INFO - actual vs prediced is :          Actual  Predicted
+0       0.279318   0.274233
+1       0.257996   0.258983
+2       0.230277   0.251450
+3       0.217484   0.256800
+4       0.213220   0.283069
+...          ...        ...
+207955  0.671642   0.645968
+207956  0.675906   0.623201
+207957  0.665245   0.583767
+207958  0.601279   0.534967
+207959  0.518124   0.485868
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:40,123 - VREDENDAL - INFO - saved to file :Results/TCN/24 Hour Forecast/VREDENDAL/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:40,124 - VREDENDAL - INFO - This is the mse: 0.002643912035842113
+
+2024-01-14 17:17:40,125 - VREDENDAL - INFO - This is the rmse: 0.051418985169313806
+
+2024-01-14 17:17:40,126 - VREDENDAL - INFO - This is the mae: 0.037969038209860057
+
+2024-01-14 17:17:40,126 - VREDENDAL - INFO - This is the smape: 10.619144997150572
+
+2024-01-14 17:17:40,127 - VREDENDAL - INFO - This is the smape_std_dev: 10.93670756584351
+
+2024-01-14 17:17:40,128 - VREDENDAL - INFO - TCN evaluation of VREDENDAL for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt

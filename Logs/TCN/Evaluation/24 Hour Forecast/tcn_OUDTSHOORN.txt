@@ -27,3 +27,57 @@
 2023-09-04 11:30:55,238 - OUDTSHOORN - INFO - This is the smape_std_dev: 11.397362235416294
 
 2023-09-04 11:30:55,238 - OUDTSHOORN - INFO - TCN evaluation of OUDTSHOORN for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:16,872 - OUDTSHOORN - INFO - TCN evaluation started atOUDTSHOORN for the horizon of 24 for split 0
+2024-01-13 08:05:17,242 - OUDTSHOORN - INFO - actual vs prediced is :          Actual  Predicted
+0       0.366594   0.346100
+1       0.366594   0.343173
+2       0.321041   0.341286
+3       0.301518   0.346974
+4       0.329718   0.364926
+...          ...        ...
+207955  0.572668   0.538944
+207956  0.587852   0.534402
+207957  0.577007   0.508849
+207958  0.479393   0.466382
+207959  0.442516   0.422244
+
+[207960 rows x 2 columns]
+2024-01-13 08:05:17,244 - OUDTSHOORN - INFO - saved to file :Results/TCN/24 Hour Forecast/OUDTSHOORN/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:17,246 - OUDTSHOORN - INFO - This is the mse: 0.0026007182287677982
+
+2024-01-13 08:05:17,247 - OUDTSHOORN - INFO - This is the rmse: 0.05099723746211944
+
+2024-01-13 08:05:17,248 - OUDTSHOORN - INFO - This is the mae: 0.03738060803279226
+
+2024-01-13 08:05:17,249 - OUDTSHOORN - INFO - This is the smape: 9.41032667719931
+
+2024-01-13 08:05:17,250 - OUDTSHOORN - INFO - This is the smape_std_dev: 9.441565346846138
+
+2024-01-13 08:05:17,252 - OUDTSHOORN - INFO - TCN evaluation of OUDTSHOORN for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:36,962 - OUDTSHOORN - INFO - TCN evaluation started atOUDTSHOORN for the horizon of 24 for split 0
+2024-01-14 17:17:37,151 - OUDTSHOORN - INFO - actual vs prediced is :          Actual  Predicted
+0       0.366594   0.345861
+1       0.366594   0.337016
+2       0.321041   0.333626
+3       0.301518   0.336402
+4       0.329718   0.347720
+...          ...        ...
+207955  0.572668   0.531990
+207956  0.587852   0.529351
+207957  0.577007   0.503251
+207958  0.479393   0.461473
+207959  0.442516   0.413670
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:37,152 - OUDTSHOORN - INFO - saved to file :Results/TCN/24 Hour Forecast/OUDTSHOORN/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:37,154 - OUDTSHOORN - INFO - This is the mse: 0.0026268070229778753
+
+2024-01-14 17:17:37,154 - OUDTSHOORN - INFO - This is the rmse: 0.051252385534508296
+
+2024-01-14 17:17:37,155 - OUDTSHOORN - INFO - This is the mae: 0.03768116988893629
+
+2024-01-14 17:17:37,156 - OUDTSHOORN - INFO - This is the smape: 9.467526560204439
+
+2024-01-14 17:17:37,156 - OUDTSHOORN - INFO - This is the smape_std_dev: 9.347223673527301
+
+2024-01-14 17:17:37,157 - OUDTSHOORN - INFO - TCN evaluation of OUDTSHOORN for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt

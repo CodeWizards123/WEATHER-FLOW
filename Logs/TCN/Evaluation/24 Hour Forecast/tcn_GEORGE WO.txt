@@ -27,3 +27,57 @@
 2023-09-04 11:30:54,061 - GEORGE WO - INFO - This is the smape_std_dev: 15.204531405699939
 
 2023-09-04 11:30:54,061 - GEORGE WO - INFO - TCN evaluation of GEORGE WO for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:13,259 - GEORGE WO - INFO - TCN evaluation started atGEORGE WO for the horizon of 24 for split 0
+2024-01-13 08:05:13,608 - GEORGE WO - INFO - actual vs prediced is :          Actual  Predicted
+0       0.296296   0.286418
+1       0.301587   0.283412
+2       0.306878   0.283712
+3       0.275132   0.286358
+4       0.275132   0.293640
+...          ...        ...
+207955  0.457672   0.444191
+207956  0.465608   0.422582
+207957  0.436508   0.389325
+207958  0.362434   0.361775
+207959  0.314815   0.330221
+
+[207960 rows x 2 columns]
+2024-01-13 08:05:13,610 - GEORGE WO - INFO - saved to file :Results/TCN/24 Hour Forecast/GEORGE WO/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:13,612 - GEORGE WO - INFO - This is the mse: 0.0036397004260786394
+
+2024-01-13 08:05:13,613 - GEORGE WO - INFO - This is the rmse: 0.0603299297702114
+
+2024-01-13 08:05:13,614 - GEORGE WO - INFO - This is the mae: 0.04262920076990102
+
+2024-01-13 08:05:13,616 - GEORGE WO - INFO - This is the smape: 12.157547462902082
+
+2024-01-13 08:05:13,617 - GEORGE WO - INFO - This is the smape_std_dev: 12.073651453946834
+
+2024-01-13 08:05:13,620 - GEORGE WO - INFO - TCN evaluation of GEORGE WO for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:34,717 - GEORGE WO - INFO - TCN evaluation started atGEORGE WO for the horizon of 24 for split 0
+2024-01-14 17:17:34,940 - GEORGE WO - INFO - actual vs prediced is :          Actual  Predicted
+0       0.296296   0.285526
+1       0.301587   0.281897
+2       0.306878   0.278869
+3       0.275132   0.279495
+4       0.275132   0.291078
+...          ...        ...
+207955  0.457672   0.446582
+207956  0.465608   0.426234
+207957  0.436508   0.397955
+207958  0.362434   0.366991
+207959  0.314815   0.336516
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:34,941 - GEORGE WO - INFO - saved to file :Results/TCN/24 Hour Forecast/GEORGE WO/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:34,942 - GEORGE WO - INFO - This is the mse: 0.0034936076691308516
+
+2024-01-14 17:17:34,943 - GEORGE WO - INFO - This is the rmse: 0.05910674808455335
+
+2024-01-14 17:17:34,944 - GEORGE WO - INFO - This is the mae: 0.041436369863562875
+
+2024-01-14 17:17:34,944 - GEORGE WO - INFO - This is the smape: 11.8182770538563
+
+2024-01-14 17:17:34,945 - GEORGE WO - INFO - This is the smape_std_dev: 11.905831707515542
+
+2024-01-14 17:17:34,947 - GEORGE WO - INFO - TCN evaluation of GEORGE WO for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt

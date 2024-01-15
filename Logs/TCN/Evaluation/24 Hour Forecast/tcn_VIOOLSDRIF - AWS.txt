@@ -27,3 +27,57 @@
 2023-09-04 11:30:57,858 - VIOOLSDRIF - AWS - INFO - This is the smape_std_dev: 9.6285874583523
 
 2023-09-04 11:30:57,858 - VIOOLSDRIF - AWS - INFO - TCN evaluation of VIOOLSDRIF - AWS for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:21,832 - VIOOLSDRIF - AWS - INFO - TCN evaluation started atVIOOLSDRIF - AWS for the horizon of 24 for split 0
+2024-01-13 08:05:21,932 - VIOOLSDRIF - AWS - INFO - actual vs prediced is :          Actual  Predicted
+0       0.294118   0.294816
+1       0.284706   0.279543
+2       0.270588   0.263200
+3       0.268235   0.261696
+4       0.268235   0.281321
+...          ...        ...
+207955  0.654118   0.635599
+207956  0.672941   0.633880
+207957  0.670588   0.615422
+207958  0.647059   0.587118
+207959  0.614118   0.550399
+
+[207960 rows x 2 columns]
+2024-01-13 08:05:21,933 - VIOOLSDRIF - AWS - INFO - saved to file :Results/TCN/24 Hour Forecast/VIOOLSDRIF - AWS/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:21,934 - VIOOLSDRIF - AWS - INFO - This is the mse: 0.0030940293012395557
+
+2024-01-13 08:05:21,935 - VIOOLSDRIF - AWS - INFO - This is the rmse: 0.05562399932798392
+
+2024-01-13 08:05:21,935 - VIOOLSDRIF - AWS - INFO - This is the mae: 0.041371651810099795
+
+2024-01-13 08:05:21,936 - VIOOLSDRIF - AWS - INFO - This is the smape: 10.41238771363466
+
+2024-01-13 08:05:21,936 - VIOOLSDRIF - AWS - INFO - This is the smape_std_dev: 10.173117804387026
+
+2024-01-13 08:05:21,938 - VIOOLSDRIF - AWS - INFO - TCN evaluation of VIOOLSDRIF - AWS for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:39,863 - VIOOLSDRIF - AWS - INFO - TCN evaluation started atVIOOLSDRIF - AWS for the horizon of 24 for split 0
+2024-01-14 17:17:39,993 - VIOOLSDRIF - AWS - INFO - actual vs prediced is :          Actual  Predicted
+0       0.294118   0.284169
+1       0.284706   0.265460
+2       0.270588   0.255419
+3       0.268235   0.258192
+4       0.268235   0.273840
+...          ...        ...
+207955  0.654118   0.626003
+207956  0.672941   0.621579
+207957  0.670588   0.599954
+207958  0.647059   0.569791
+207959  0.614118   0.534792
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:39,994 - VIOOLSDRIF - AWS - INFO - saved to file :Results/TCN/24 Hour Forecast/VIOOLSDRIF - AWS/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:39,995 - VIOOLSDRIF - AWS - INFO - This is the mse: 0.003100639974234106
+
+2024-01-14 17:17:39,995 - VIOOLSDRIF - AWS - INFO - This is the rmse: 0.055683390469996576
+
+2024-01-14 17:17:39,996 - VIOOLSDRIF - AWS - INFO - This is the mae: 0.04142658513320068
+
+2024-01-14 17:17:39,996 - VIOOLSDRIF - AWS - INFO - This is the smape: 10.44063868049899
+
+2024-01-14 17:17:39,997 - VIOOLSDRIF - AWS - INFO - This is the smape_std_dev: 10.256443143339288
+
+2024-01-14 17:17:39,998 - VIOOLSDRIF - AWS - INFO - TCN evaluation of VIOOLSDRIF - AWS for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt

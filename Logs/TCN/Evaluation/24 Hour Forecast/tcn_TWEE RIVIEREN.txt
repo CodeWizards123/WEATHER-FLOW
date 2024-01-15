@@ -27,3 +27,57 @@
 2023-09-04 11:30:57,360 - TWEE RIVIEREN - INFO - This is the smape_std_dev: 7.630713090442698
 
 2023-09-04 11:30:57,360 - TWEE RIVIEREN - INFO - TCN evaluation of TWEE RIVIEREN for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:21,217 - TWEE RIVIEREN - INFO - TCN evaluation started atTWEE RIVIEREN for the horizon of 24 for split 0
+2024-01-13 08:05:21,368 - TWEE RIVIEREN - INFO - actual vs prediced is :          Actual  Predicted
+0       0.468864   0.499600
+1       0.478022   0.477942
+2       0.459707   0.458124
+3       0.430403   0.443222
+4       0.412088   0.458611
+...          ...        ...
+207955  0.743590   0.747955
+207956  0.739927   0.744046
+207957  0.734432   0.700453
+207958  0.663004   0.632832
+207959  0.591575   0.556810
+
+[207960 rows x 2 columns]
+2024-01-13 08:05:21,368 - TWEE RIVIEREN - INFO - saved to file :Results/TCN/24 Hour Forecast/TWEE RIVIEREN/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:21,370 - TWEE RIVIEREN - INFO - This is the mse: 0.002294050265734351
+
+2024-01-13 08:05:21,371 - TWEE RIVIEREN - INFO - This is the rmse: 0.04789624479783724
+
+2024-01-13 08:05:21,371 - TWEE RIVIEREN - INFO - This is the mae: 0.0357368759391862
+
+2024-01-13 08:05:21,372 - TWEE RIVIEREN - INFO - This is the smape: 7.234616206297324
+
+2024-01-13 08:05:21,372 - TWEE RIVIEREN - INFO - This is the smape_std_dev: 7.476849980768117
+
+2024-01-13 08:05:21,374 - TWEE RIVIEREN - INFO - TCN evaluation of TWEE RIVIEREN for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:39,339 - TWEE RIVIEREN - INFO - TCN evaluation started atTWEE RIVIEREN for the horizon of 24 for split 0
+2024-01-14 17:17:39,459 - TWEE RIVIEREN - INFO - actual vs prediced is :          Actual  Predicted
+0       0.468864   0.488602
+1       0.478022   0.475138
+2       0.459707   0.460922
+3       0.430403   0.454290
+4       0.412088   0.465190
+...          ...        ...
+207955  0.743590   0.722219
+207956  0.739927   0.724072
+207957  0.734432   0.692771
+207958  0.663004   0.619626
+207959  0.591575   0.539311
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:39,460 - TWEE RIVIEREN - INFO - saved to file :Results/TCN/24 Hour Forecast/TWEE RIVIEREN/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:39,461 - TWEE RIVIEREN - INFO - This is the mse: 0.002340362377448793
+
+2024-01-14 17:17:39,462 - TWEE RIVIEREN - INFO - This is the rmse: 0.048377291960679164
+
+2024-01-14 17:17:39,463 - TWEE RIVIEREN - INFO - This is the mae: 0.03621167562273492
+
+2024-01-14 17:17:39,463 - TWEE RIVIEREN - INFO - This is the smape: 7.349969313461047
+
+2024-01-14 17:17:39,464 - TWEE RIVIEREN - INFO - This is the smape_std_dev: 7.520526170461579
+
+2024-01-14 17:17:39,465 - TWEE RIVIEREN - INFO - TCN evaluation of TWEE RIVIEREN for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt

@@ -27,3 +27,57 @@
 2023-09-04 11:30:57,617 - UPINGTON WO - INFO - This is the smape_std_dev: 9.97887944355766
 
 2023-09-04 11:30:57,618 - UPINGTON WO - INFO - TCN evaluation of UPINGTON WO for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:21,554 - UPINGTON WO - INFO - TCN evaluation started atUPINGTON WO for the horizon of 24 for split 0
+2024-01-13 08:05:21,687 - UPINGTON WO - INFO - actual vs prediced is :          Actual  Predicted
+0       0.493927   0.474098
+1       0.461538   0.457504
+2       0.457490   0.444495
+3       0.398785   0.452558
+4       0.417004   0.469616
+...          ...        ...
+207955  0.682186   0.635627
+207956  0.655870   0.629730
+207957  0.627530   0.595607
+207958  0.506073   0.549032
+207959  0.465587   0.488967
+
+[207960 rows x 2 columns]
+2024-01-13 08:05:21,688 - UPINGTON WO - INFO - saved to file :Results/TCN/24 Hour Forecast/UPINGTON WO/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:21,690 - UPINGTON WO - INFO - This is the mse: 0.0025196992031619567
+
+2024-01-13 08:05:21,690 - UPINGTON WO - INFO - This is the rmse: 0.05019660549441522
+
+2024-01-13 08:05:21,691 - UPINGTON WO - INFO - This is the mae: 0.0376760583625051
+
+2024-01-13 08:05:21,691 - UPINGTON WO - INFO - This is the smape: 8.175154342212036
+
+2024-01-13 08:05:21,692 - UPINGTON WO - INFO - This is the smape_std_dev: 8.627031015945857
+
+2024-01-13 08:05:21,693 - UPINGTON WO - INFO - TCN evaluation of UPINGTON WO for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:39,605 - UPINGTON WO - INFO - TCN evaluation started atUPINGTON WO for the horizon of 24 for split 0
+2024-01-14 17:17:39,726 - UPINGTON WO - INFO - actual vs prediced is :          Actual  Predicted
+0       0.493927   0.479483
+1       0.461538   0.458778
+2       0.457490   0.446088
+3       0.398785   0.443879
+4       0.417004   0.455696
+...          ...        ...
+207955  0.682186   0.648998
+207956  0.655870   0.641243
+207957  0.627530   0.610577
+207958  0.506073   0.554547
+207959  0.465587   0.489228
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:39,727 - UPINGTON WO - INFO - saved to file :Results/TCN/24 Hour Forecast/UPINGTON WO/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:39,729 - UPINGTON WO - INFO - This is the mse: 0.0024758588752216886
+
+2024-01-14 17:17:39,729 - UPINGTON WO - INFO - This is the rmse: 0.04975800312735318
+
+2024-01-14 17:17:39,730 - UPINGTON WO - INFO - This is the mae: 0.03762707258114903
+
+2024-01-14 17:17:39,731 - UPINGTON WO - INFO - This is the smape: 8.177841385983358
+
+2024-01-14 17:17:39,731 - UPINGTON WO - INFO - This is the smape_std_dev: 8.62840082719381
+
+2024-01-14 17:17:39,733 - UPINGTON WO - INFO - TCN evaluation of UPINGTON WO for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt

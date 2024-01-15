@@ -27,3 +27,57 @@
 2023-09-04 11:30:54,774 - LANGGEWENS - INFO - This is the smape_std_dev: 11.829751880212584
 
 2023-09-04 11:30:54,775 - LANGGEWENS - INFO - TCN evaluation of LANGGEWENS for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:15,486 - LANGGEWENS - INFO - TCN evaluation started atLANGGEWENS for the horizon of 24 for split 0
+2024-01-13 08:05:15,826 - LANGGEWENS - INFO - actual vs prediced is :          Actual  Predicted
+0       0.294964   0.301047
+1       0.275779   0.298208
+2       0.263789   0.296121
+3       0.311751   0.311448
+4       0.292566   0.341346
+...          ...        ...
+207955  0.630695   0.617134
+207956  0.635492   0.599563
+207957  0.573141   0.551155
+207958  0.479616   0.490185
+207959  0.419664   0.430994
+
+[207960 rows x 2 columns]
+2024-01-13 08:05:15,828 - LANGGEWENS - INFO - saved to file :Results/TCN/24 Hour Forecast/LANGGEWENS/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:15,830 - LANGGEWENS - INFO - This is the mse: 0.0026922323563516337
+
+2024-01-13 08:05:15,831 - LANGGEWENS - INFO - This is the rmse: 0.05188672620576127
+
+2024-01-13 08:05:15,832 - LANGGEWENS - INFO - This is the mae: 0.03811126142435297
+
+2024-01-13 08:05:15,833 - LANGGEWENS - INFO - This is the smape: 10.42535745538473
+
+2024-01-13 08:05:15,834 - LANGGEWENS - INFO - This is the smape_std_dev: 10.126996444295724
+
+2024-01-13 08:05:15,836 - LANGGEWENS - INFO - TCN evaluation of LANGGEWENS for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:36,102 - LANGGEWENS - INFO - TCN evaluation started atLANGGEWENS for the horizon of 24 for split 0
+2024-01-14 17:17:36,310 - LANGGEWENS - INFO - actual vs prediced is :          Actual  Predicted
+0       0.294964   0.294174
+1       0.275779   0.285695
+2       0.263789   0.285053
+3       0.311751   0.297042
+4       0.292566   0.324434
+...          ...        ...
+207955  0.630695   0.602639
+207956  0.635492   0.581819
+207957  0.573141   0.533857
+207958  0.479616   0.476339
+207959  0.419664   0.421395
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:36,311 - LANGGEWENS - INFO - saved to file :Results/TCN/24 Hour Forecast/LANGGEWENS/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:36,312 - LANGGEWENS - INFO - This is the mse: 0.002702583060469287
+
+2024-01-14 17:17:36,313 - LANGGEWENS - INFO - This is the rmse: 0.05198637379611398
+
+2024-01-14 17:17:36,314 - LANGGEWENS - INFO - This is the mae: 0.03814238800226045
+
+2024-01-14 17:17:36,314 - LANGGEWENS - INFO - This is the smape: 10.422064524198671
+
+2024-01-14 17:17:36,315 - LANGGEWENS - INFO - This is the smape_std_dev: 10.253497703502909
+
+2024-01-14 17:17:36,316 - LANGGEWENS - INFO - TCN evaluation of LANGGEWENS for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt

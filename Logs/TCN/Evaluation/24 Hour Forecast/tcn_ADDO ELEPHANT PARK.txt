@@ -27,3 +27,57 @@
 2023-09-04 11:30:52,104 - ADDO ELEPHANT PARK - INFO - This is the smape_std_dev: 9.990431633318634
 
 2023-09-04 11:30:52,104 - ADDO ELEPHANT PARK - INFO - TCN evaluation of ADDO ELEPHANT PARK for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:08,076 - ADDO ELEPHANT PARK - INFO - TCN evaluation started atADDO ELEPHANT PARK for the horizon of 24 for split 0
+2024-01-13 08:05:08,647 - ADDO ELEPHANT PARK - INFO - actual vs prediced is :          Actual  Predicted
+0       0.557114   0.540647
+1       0.529058   0.514679
+2       0.474950   0.493407
+3       0.442886   0.474132
+4       0.420842   0.458190
+...          ...        ...
+208531  0.553106   0.527811
+208532  0.517034   0.507166
+208533  0.476954   0.471759
+208534  0.426854   0.433471
+208535  0.400802   0.395711
+
+[208536 rows x 2 columns]
+2024-01-13 08:05:08,648 - ADDO ELEPHANT PARK - INFO - saved to file :Results/TCN/24 Hour Forecast/ADDO ELEPHANT PARK/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:08,649 - ADDO ELEPHANT PARK - INFO - This is the mse: 0.0027417728923765914
+
+2024-01-13 08:05:08,650 - ADDO ELEPHANT PARK - INFO - This is the rmse: 0.05236194125867175
+
+2024-01-13 08:05:08,651 - ADDO ELEPHANT PARK - INFO - This is the mae: 0.03893041243283455
+
+2024-01-13 08:05:08,651 - ADDO ELEPHANT PARK - INFO - This is the smape: 9.079408332437806
+
+2024-01-13 08:05:08,652 - ADDO ELEPHANT PARK - INFO - This is the smape_std_dev: 8.37585372082245
+
+2024-01-13 08:05:08,653 - ADDO ELEPHANT PARK - INFO - TCN evaluation of ADDO ELEPHANT PARK for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:31,512 - ADDO ELEPHANT PARK - INFO - TCN evaluation started atADDO ELEPHANT PARK for the horizon of 24 for split 0
+2024-01-14 17:17:31,899 - ADDO ELEPHANT PARK - INFO - actual vs prediced is :          Actual  Predicted
+0       0.372745   0.364053
+1       0.370741   0.362920
+2       0.368737   0.360175
+3       0.368737   0.355198
+4       0.378758   0.353211
+...          ...        ...
+207955  0.575150   0.563722
+207956  0.571142   0.547460
+207957  0.563126   0.512142
+207958  0.464930   0.469010
+207959  0.408818   0.424757
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:31,900 - ADDO ELEPHANT PARK - INFO - saved to file :Results/TCN/24 Hour Forecast/ADDO ELEPHANT PARK/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:31,901 - ADDO ELEPHANT PARK - INFO - This is the mse: 0.002664423272059955
+
+2024-01-14 17:17:31,902 - ADDO ELEPHANT PARK - INFO - This is the rmse: 0.05161805180418915
+
+2024-01-14 17:17:31,902 - ADDO ELEPHANT PARK - INFO - This is the mae: 0.0382184098466718
+
+2024-01-14 17:17:31,903 - ADDO ELEPHANT PARK - INFO - This is the smape: 8.911747699469771
+
+2024-01-14 17:17:31,904 - ADDO ELEPHANT PARK - INFO - This is the smape_std_dev: 8.18622703795633
+
+2024-01-14 17:17:31,905 - ADDO ELEPHANT PARK - INFO - TCN evaluation of ADDO ELEPHANT PARK for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt

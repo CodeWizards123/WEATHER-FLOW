@@ -27,3 +27,57 @@
 2023-09-04 11:30:55,588 - PORT ALFRED - AIRPORT - INFO - This is the smape_std_dev: 15.500260414531951
 
 2023-09-04 11:30:55,588 - PORT ALFRED - AIRPORT - INFO - TCN evaluation of PORT ALFRED - AIRPORT for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:17,953 - PORT ALFRED - AIRPORT - INFO - TCN evaluation started atPORT ALFRED - AIRPORT for the horizon of 24 for split 0
+2024-01-13 08:05:18,283 - PORT ALFRED - AIRPORT - INFO - actual vs prediced is :          Actual  Predicted
+0       0.383085   0.372523
+1       0.380597   0.371137
+2       0.380597   0.369605
+3       0.380597   0.371399
+4       0.388060   0.377791
+...          ...        ...
+207955  0.504975   0.504479
+207956  0.495025   0.491932
+207957  0.467662   0.465507
+207958  0.425373   0.431063
+207959  0.393035   0.405005
+
+[207960 rows x 2 columns]
+2024-01-13 08:05:18,284 - PORT ALFRED - AIRPORT - INFO - saved to file :Results/TCN/24 Hour Forecast/PORT ALFRED - AIRPORT/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:18,285 - PORT ALFRED - AIRPORT - INFO - This is the mse: 0.002902194621565482
+
+2024-01-13 08:05:18,285 - PORT ALFRED - AIRPORT - INFO - This is the rmse: 0.0538720207674214
+
+2024-01-13 08:05:18,286 - PORT ALFRED - AIRPORT - INFO - This is the mae: 0.039184611505659606
+
+2024-01-13 08:05:18,287 - PORT ALFRED - AIRPORT - INFO - This is the smape: 9.123100989037319
+
+2024-01-13 08:05:18,287 - PORT ALFRED - AIRPORT - INFO - This is the smape_std_dev: 8.69899047869318
+
+2024-01-13 08:05:18,288 - PORT ALFRED - AIRPORT - INFO - TCN evaluation of PORT ALFRED - AIRPORT for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:37,542 - PORT ALFRED - AIRPORT - INFO - TCN evaluation started atPORT ALFRED - AIRPORT for the horizon of 24 for split 0
+2024-01-14 17:17:37,717 - PORT ALFRED - AIRPORT - INFO - actual vs prediced is :          Actual  Predicted
+0       0.383085   0.378065
+1       0.380597   0.373595
+2       0.380597   0.373416
+3       0.380597   0.374131
+4       0.388060   0.379725
+...          ...        ...
+207955  0.504975   0.496318
+207956  0.495025   0.479573
+207957  0.467662   0.455753
+207958  0.425373   0.428019
+207959  0.393035   0.398798
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:37,719 - PORT ALFRED - AIRPORT - INFO - saved to file :Results/TCN/24 Hour Forecast/PORT ALFRED - AIRPORT/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:37,720 - PORT ALFRED - AIRPORT - INFO - This is the mse: 0.002839399896862894
+
+2024-01-14 17:17:37,721 - PORT ALFRED - AIRPORT - INFO - This is the rmse: 0.05328601971308135
+
+2024-01-14 17:17:37,722 - PORT ALFRED - AIRPORT - INFO - This is the mae: 0.03870018016978971
+
+2024-01-14 17:17:37,723 - PORT ALFRED - AIRPORT - INFO - This is the smape: 9.014750613679936
+
+2024-01-14 17:17:37,724 - PORT ALFRED - AIRPORT - INFO - This is the smape_std_dev: 8.65592181646653
+
+2024-01-14 17:17:37,725 - PORT ALFRED - AIRPORT - INFO - TCN evaluation of PORT ALFRED - AIRPORT for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt

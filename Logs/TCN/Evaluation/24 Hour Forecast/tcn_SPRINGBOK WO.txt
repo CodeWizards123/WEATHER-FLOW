@@ -27,3 +27,57 @@
 2023-09-04 11:30:57,185 - SPRINGBOK WO - INFO - This is the smape_std_dev: 12.03611111717005
 
 2023-09-04 11:30:57,186 - SPRINGBOK WO - INFO - TCN evaluation of SPRINGBOK WO for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:21,028 - SPRINGBOK WO - INFO - TCN evaluation started atSPRINGBOK WO for the horizon of 24 for split 0
+2024-01-13 08:05:21,207 - SPRINGBOK WO - INFO - actual vs prediced is :          Actual  Predicted
+0       0.312661   0.315073
+1       0.297158   0.301777
+2       0.302326   0.299842
+3       0.297158   0.304830
+4       0.312661   0.318116
+...          ...        ...
+207955  0.643411   0.631482
+207956  0.651163   0.615976
+207957  0.643411   0.587286
+207958  0.607235   0.552155
+207959  0.576227   0.514702
+
+[207960 rows x 2 columns]
+2024-01-13 08:05:21,209 - SPRINGBOK WO - INFO - saved to file :Results/TCN/24 Hour Forecast/SPRINGBOK WO/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:21,210 - SPRINGBOK WO - INFO - This is the mse: 0.003912811225810466
+
+2024-01-13 08:05:21,211 - SPRINGBOK WO - INFO - This is the rmse: 0.06255246778353725
+
+2024-01-13 08:05:21,212 - SPRINGBOK WO - INFO - This is the mae: 0.046806841297636056
+
+2024-01-13 08:05:21,212 - SPRINGBOK WO - INFO - This is the smape: 11.76577963697355
+
+2024-01-13 08:05:21,213 - SPRINGBOK WO - INFO - This is the smape_std_dev: 11.631396504584378
+
+2024-01-13 08:05:21,215 - SPRINGBOK WO - INFO - TCN evaluation of SPRINGBOK WO for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:39,204 - SPRINGBOK WO - INFO - TCN evaluation started atSPRINGBOK WO for the horizon of 24 for split 0
+2024-01-14 17:17:39,328 - SPRINGBOK WO - INFO - actual vs prediced is :          Actual  Predicted
+0       0.312661   0.337895
+1       0.297158   0.329689
+2       0.302326   0.320865
+3       0.297158   0.321304
+4       0.312661   0.333897
+...          ...        ...
+207955  0.643411   0.630153
+207956  0.651163   0.617342
+207957  0.643411   0.592355
+207958  0.607235   0.557237
+207959  0.576227   0.517229
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:39,330 - SPRINGBOK WO - INFO - saved to file :Results/TCN/24 Hour Forecast/SPRINGBOK WO/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:39,331 - SPRINGBOK WO - INFO - This is the mse: 0.003757007297720951
+
+2024-01-14 17:17:39,331 - SPRINGBOK WO - INFO - This is the rmse: 0.06129443121296543
+
+2024-01-14 17:17:39,332 - SPRINGBOK WO - INFO - This is the mae: 0.04530830850194753
+
+2024-01-14 17:17:39,333 - SPRINGBOK WO - INFO - This is the smape: 11.399804181284802
+
+2024-01-14 17:17:39,334 - SPRINGBOK WO - INFO - This is the smape_std_dev: 11.384180623653322
+
+2024-01-14 17:17:39,335 - SPRINGBOK WO - INFO - TCN evaluation of SPRINGBOK WO for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt

@@ -27,3 +27,57 @@
 2023-09-04 11:30:54,895 - MALMESBURY - INFO - This is the smape_std_dev: 13.033226609163787
 
 2023-09-04 11:30:54,895 - MALMESBURY - INFO - TCN evaluation of MALMESBURY for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:15,839 - MALMESBURY - INFO - TCN evaluation started atMALMESBURY for the horizon of 24 for split 0
+2024-01-13 08:05:16,181 - MALMESBURY - INFO - actual vs prediced is :          Actual  Predicted
+0       0.281250   0.289287
+1       0.265625   0.274280
+2       0.247768   0.267206
+3       0.238839   0.279895
+4       0.229911   0.311170
+...          ...        ...
+207955  0.665179   0.627212
+207956  0.609375   0.604611
+207957  0.573661   0.566078
+207958  0.526786   0.514047
+207959  0.457589   0.457224
+
+[207960 rows x 2 columns]
+2024-01-13 08:05:16,183 - MALMESBURY - INFO - saved to file :Results/TCN/24 Hour Forecast/MALMESBURY/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:16,185 - MALMESBURY - INFO - This is the mse: 0.0029542516300880297
+
+2024-01-13 08:05:16,186 - MALMESBURY - INFO - This is the rmse: 0.05435302779135703
+
+2024-01-13 08:05:16,187 - MALMESBURY - INFO - This is the mae: 0.04084097590332344
+
+2024-01-13 08:05:16,188 - MALMESBURY - INFO - This is the smape: 10.982405853284199
+
+2024-01-13 08:05:16,189 - MALMESBURY - INFO - This is the smape_std_dev: 10.561008950991944
+
+2024-01-13 08:05:16,191 - MALMESBURY - INFO - TCN evaluation of MALMESBURY for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:36,317 - MALMESBURY - INFO - TCN evaluation started atMALMESBURY for the horizon of 24 for split 0
+2024-01-14 17:17:36,530 - MALMESBURY - INFO - actual vs prediced is :          Actual  Predicted
+0       0.281250   0.284786
+1       0.265625   0.272600
+2       0.247768   0.258000
+3       0.238839   0.262708
+4       0.229911   0.290869
+...          ...        ...
+207955  0.665179   0.627749
+207956  0.609375   0.613113
+207957  0.573661   0.573320
+207958  0.526786   0.514387
+207959  0.457589   0.452466
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:36,531 - MALMESBURY - INFO - saved to file :Results/TCN/24 Hour Forecast/MALMESBURY/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:36,532 - MALMESBURY - INFO - This is the mse: 0.002679173900610735
+
+2024-01-14 17:17:36,533 - MALMESBURY - INFO - This is the rmse: 0.051760737056293304
+
+2024-01-14 17:17:36,534 - MALMESBURY - INFO - This is the mae: 0.03862782871890129
+
+2024-01-14 17:17:36,534 - MALMESBURY - INFO - This is the smape: 10.39487566074361
+
+2024-01-14 17:17:36,535 - MALMESBURY - INFO - This is the smape_std_dev: 10.089048181892739
+
+2024-01-14 17:17:36,536 - MALMESBURY - INFO - TCN evaluation of MALMESBURY for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt

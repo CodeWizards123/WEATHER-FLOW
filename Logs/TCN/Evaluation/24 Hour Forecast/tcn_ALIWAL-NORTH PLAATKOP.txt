@@ -27,3 +27,57 @@
 2023-09-04 11:30:52,335 - ALIWAL-NORTH PLAATKOP - INFO - This is the smape_std_dev: 12.896785860282836
 
 2023-09-04 11:30:52,335 - ALIWAL-NORTH PLAATKOP - INFO - TCN evaluation of ALIWAL-NORTH PLAATKOP for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:08,990 - ALIWAL-NORTH PLAATKOP - INFO - TCN evaluation started atALIWAL-NORTH PLAATKOP for the horizon of 24 for split 0
+2024-01-13 08:05:09,342 - ALIWAL-NORTH PLAATKOP - INFO - actual vs prediced is :          Actual  Predicted
+0       0.411417   0.421929
+1       0.403543   0.405926
+2       0.397638   0.392709
+3       0.409449   0.397813
+4       0.417323   0.429409
+...          ...        ...
+207955  0.590551   0.550136
+207956  0.584646   0.523466
+207957  0.533465   0.477379
+207958  0.411417   0.420896
+207959  0.342520   0.369225
+
+[207960 rows x 2 columns]
+2024-01-13 08:05:09,343 - ALIWAL-NORTH PLAATKOP - INFO - saved to file :Results/TCN/24 Hour Forecast/ALIWAL-NORTH PLAATKOP/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:09,344 - ALIWAL-NORTH PLAATKOP - INFO - This is the mse: 0.002493738626833323
+
+2024-01-13 08:05:09,344 - ALIWAL-NORTH PLAATKOP - INFO - This is the rmse: 0.049937347014367146
+
+2024-01-13 08:05:09,345 - ALIWAL-NORTH PLAATKOP - INFO - This is the mae: 0.03725140767947247
+
+2024-01-13 08:05:09,345 - ALIWAL-NORTH PLAATKOP - INFO - This is the smape: 8.710848234875675
+
+2024-01-13 08:05:09,346 - ALIWAL-NORTH PLAATKOP - INFO - This is the smape_std_dev: 8.727834325161423
+
+2024-01-13 08:05:09,347 - ALIWAL-NORTH PLAATKOP - INFO - TCN evaluation of ALIWAL-NORTH PLAATKOP for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:32,164 - ALIWAL-NORTH PLAATKOP - INFO - TCN evaluation started atALIWAL-NORTH PLAATKOP for the horizon of 24 for split 0
+2024-01-14 17:17:32,356 - ALIWAL-NORTH PLAATKOP - INFO - actual vs prediced is :          Actual  Predicted
+0       0.411417   0.416628
+1       0.403543   0.403512
+2       0.397638   0.397603
+3       0.409449   0.404087
+4       0.417323   0.433416
+...          ...        ...
+207955  0.590551   0.550023
+207956  0.584646   0.519114
+207957  0.533465   0.472077
+207958  0.411417   0.413141
+207959  0.342520   0.356643
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:32,357 - ALIWAL-NORTH PLAATKOP - INFO - saved to file :Results/TCN/24 Hour Forecast/ALIWAL-NORTH PLAATKOP/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:32,358 - ALIWAL-NORTH PLAATKOP - INFO - This is the mse: 0.0024634084006634276
+
+2024-01-14 17:17:32,359 - ALIWAL-NORTH PLAATKOP - INFO - This is the rmse: 0.049632735172096126
+
+2024-01-14 17:17:32,359 - ALIWAL-NORTH PLAATKOP - INFO - This is the mae: 0.03700612998285373
+
+2024-01-14 17:17:32,360 - ALIWAL-NORTH PLAATKOP - INFO - This is the smape: 8.677133647859309
+
+2024-01-14 17:17:32,361 - ALIWAL-NORTH PLAATKOP - INFO - This is the smape_std_dev: 8.784439633110841
+
+2024-01-14 17:17:32,362 - ALIWAL-NORTH PLAATKOP - INFO - TCN evaluation of ALIWAL-NORTH PLAATKOP for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt

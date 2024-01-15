@@ -44,7 +44,7 @@ output_dim:
   help: dimension of output data
 predictor_attributes:
   type: list
-  default: [Temperature]
+  default: [Humidity]
   help: attributes being predicted
 embed_dim:
   type: int

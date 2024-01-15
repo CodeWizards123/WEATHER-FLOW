@@ -27,3 +27,57 @@
 2023-09-04 11:30:54,305 - GRAHAMSTOWN - INFO - This is the smape_std_dev: 11.692738563746595
 
 2023-09-04 11:30:54,305 - GRAHAMSTOWN - INFO - TCN evaluation of GRAHAMSTOWN for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-13 08:05:13,993 - GRAHAMSTOWN - INFO - TCN evaluation started atGRAHAMSTOWN for the horizon of 24 for split 0
+2024-01-13 08:05:14,343 - GRAHAMSTOWN - INFO - actual vs prediced is :          Actual  Predicted
+0       0.298246   0.286288
+1       0.293233   0.285554
+2       0.295739   0.284944
+3       0.300752   0.285999
+4       0.300752   0.287781
+...          ...        ...
+207955  0.468672   0.485622
+207956  0.463659   0.458988
+207957  0.421053   0.417191
+207958  0.358396   0.371983
+207959  0.325815   0.326710
+
+[207960 rows x 2 columns]
+2024-01-13 08:05:14,344 - GRAHAMSTOWN - INFO - saved to file :Results/TCN/24 Hour Forecast/GRAHAMSTOWN/Metrics/actual_vs_predicted.txt
+2024-01-13 08:05:14,346 - GRAHAMSTOWN - INFO - This is the mse: 0.0032923530562656653
+
+2024-01-13 08:05:14,347 - GRAHAMSTOWN - INFO - This is the rmse: 0.05737902976058122
+
+2024-01-13 08:05:14,349 - GRAHAMSTOWN - INFO - This is the mae: 0.041471783374727296
+
+2024-01-13 08:05:14,349 - GRAHAMSTOWN - INFO - This is the smape: 10.411622464339851
+
+2024-01-13 08:05:14,350 - GRAHAMSTOWN - INFO - This is the smape_std_dev: 9.290782845530732
+
+2024-01-13 08:05:14,351 - GRAHAMSTOWN - INFO - TCN evaluation of GRAHAMSTOWN for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
+2024-01-14 17:17:35,170 - GRAHAMSTOWN - INFO - TCN evaluation started atGRAHAMSTOWN for the horizon of 24 for split 0
+2024-01-14 17:17:35,357 - GRAHAMSTOWN - INFO - actual vs prediced is :          Actual  Predicted
+0       0.298246   0.280934
+1       0.293233   0.279387
+2       0.295739   0.276229
+3       0.300752   0.272253
+4       0.300752   0.272560
+...          ...        ...
+207955  0.468672   0.509304
+207956  0.463659   0.480111
+207957  0.421053   0.438807
+207958  0.358396   0.395992
+207959  0.325815   0.353866
+
+[207960 rows x 2 columns]
+2024-01-14 17:17:35,358 - GRAHAMSTOWN - INFO - saved to file :Results/TCN/24 Hour Forecast/GRAHAMSTOWN/Metrics/actual_vs_predicted.txt
+2024-01-14 17:17:35,360 - GRAHAMSTOWN - INFO - This is the mse: 0.0033433856411745704
+
+2024-01-14 17:17:35,361 - GRAHAMSTOWN - INFO - This is the rmse: 0.05782201692413168
+
+2024-01-14 17:17:35,361 - GRAHAMSTOWN - INFO - This is the mae: 0.042083658180136145
+
+2024-01-14 17:17:35,362 - GRAHAMSTOWN - INFO - This is the smape: 10.577742119297904
+
+2024-01-14 17:17:35,363 - GRAHAMSTOWN - INFO - This is the smape_std_dev: 9.436369753448897
+
+2024-01-14 17:17:35,364 - GRAHAMSTOWN - INFO - TCN evaluation of GRAHAMSTOWN for the horizon of 24 was saved to Results/{model}/{horizon} Hour Forecast/{station}/Metrics/metrics.txt
