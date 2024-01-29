@@ -81,7 +81,7 @@ def min_max(train, validation, test):
     # val_data = norm.inverse_transform(val_data)
     # test_data = norm.inverse_transform(test_data)
 
-    return train_data, val_data, test_data
+    return train_data, val_data, test_data, norm
 
 
 def create_X_Y(ts: np.array, lag=1, n_ahead=1, target_index=0):
