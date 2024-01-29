@@ -9,8 +9,9 @@ import os
 from Logs.modelLogger import modelLogger
 from Execute.modelExecute import modelExecute
 from datetime import datetime,timedelta
-#tf.config.threading.set_intra_op_parallelism_threads(24)
-#tf.config.threading.set_inter_op_parallelism_threads(24)
+import numpy as np
+# tf.config.threading.set_intra_op_parallelism_threads(24)
+# tf.config.threading.set_inter_op_parallelism_threads(24)
 
 class tcnExecute(modelExecute):
     def __init__(self, sharedConfig, tcnConfig):
@@ -74,7 +75,7 @@ class tcnExecute(modelExecute):
                 
 
                 for k in range(num_splits):
-                    lossDF, resultsDF, targetDF, targetFile, resultsFile, lossFile = self.create_dataframes_and_dirs(forecast_len, station, k)
+                    lossDF, resultsDF, targetDF, targetFile, resultsFile, lossFile, resultsFile_unnormalised, targetFile_unnormalised ,resultsDF_unnormalised, targetDF_unnormalised, resultsFile_unnormalised, targetFile_unnormalised = self.create_dataframes_and_dirs(forecast_len, station, k)
                     print('TCN training started on split {0}/{3} at {1} station forecasting {2} hours ahead.'.format(k+1, station,
                                                                                                         forecast_len, num_splits))
                     self.model_logger.info('TCN Model on split {0}/{3} at {1} station forecasting {2} hours ahead.'.format(k+1, station,
@@ -94,7 +95,7 @@ class tcnExecute(modelExecute):
                     # train, validation, test = utils.min_max(pre_standardize_train,
                     #                     pre_standardize_validation,
                     #                     pre_standardize_test, allDataTrain)
-                    train, validation, test = utils.min_max(pre_standardize_train,
+                    train, validation, test, norm = utils.min_max(pre_standardize_train,
                                                             pre_standardize_validation,
                                                             pre_standardize_test)
                     # Defining input shape
@@ -141,8 +142,24 @@ class tcnExecute(modelExecute):
                         model = load_model(saveFile, custom_objects={'TCN': TCN})
                         # Test the model and write to file
                         yhat = model.predict(X_test)
+                        
+                        
+                        
+
+                        feature_index = 0 
+                        reshaped_yhat = yhat.reshape(-1, 1)
+                        yhat_repeat = np.repeat(reshaped_yhat, 6, axis=1)
+                        yhat_unnormalised_repeat = norm.inverse_transform(yhat_repeat)
+                        yhat_unnormalised = yhat_unnormalised_repeat[:, feature_index].reshape(-1, 1)
+                        num_rows = yhat_unnormalised.size // forecast_len
+                        yhat_unnormalised = yhat_unnormalised.reshape(num_rows, forecast_len)
+
+
+                  
+                        
                         # predictions to dataframe
                         resultsDF = pd.concat([resultsDF, pd.Series(yhat.reshape(-1, ))])
+                        resultsDF_unnormalised = pd.concat([resultsDF_unnormalised, pd.Series(yhat_unnormalised.reshape(-1, ))])
                         
                         # self.save_actual_vs_predicted(Y_test, yhat, station,forecast_len)
 
@@ -176,11 +193,25 @@ class tcnExecute(modelExecute):
                     self.model_logger.info('TCN training done on split {0}/{3} at {1} station forecasting {2} hours ahead.'.format(k+1, station,
                                                                                                         forecast_len,num_splits))
                     # Targets to dataframe
+                    
+                    feature_index = 0 
+                    reshaped_Y_test = Y_test.reshape(-1, 1)
+                    Y_test_repeat = np.repeat(reshaped_Y_test, 6, axis=1)
+                    Y_test_unnormalised_repeat = norm.inverse_transform(Y_test_repeat)
+                    Y_test_unnormalised = Y_test_unnormalised_repeat[:, feature_index].reshape(-1, 1)
+                    num_rows = Y_test_unnormalised.size // forecast_len
+                    Y_test_unnormalised = Y_test_unnormalised.reshape(num_rows, forecast_len)
+
+
                     targetDF = pd.concat([targetDF, pd.Series(Y_test.reshape(-1, ))])
+                    targetDF_unnormalised = pd.concat([targetDF_unnormalised, pd.Series(Y_test_unnormalised.reshape(-1, ))])
+
 
                     resultsDF.to_csv(resultsFile)
+                    resultsDF_unnormalised.to_csv(resultsFile_unnormalised)
                     lossDF.to_csv(lossFile)
                     targetDF.to_csv(targetFile)
+                    targetDF_unnormalised.to_csv(targetFile_unnormalised)
                 
                 self.model_logger.info('TCN training finished at ' + station)  
                 
@@ -238,6 +269,8 @@ class tcnExecute(modelExecute):
         lossDF = pd.DataFrame()
         resultsDF = pd.DataFrame()
         targetDF = pd.DataFrame()
+        resultsDF_unnormalised = pd.DataFrame()
+        targetDF_unnormalised = pd.DataFrame()
 
         base_path = f'Results/TCN/{forecast_len} Hour Forecast/{station}'
 
@@ -245,13 +278,22 @@ class tcnExecute(modelExecute):
         os.makedirs(target_path, exist_ok=True)
         targetFile = f'{target_path}target_'+ str(k) +'.csv'
 
+        target_path_unnormalised = f'{base_path}/Targets/'
+        os.makedirs(target_path_unnormalised, exist_ok=True)
+        targetFile_unnormalised = f'{target_path_unnormalised}target_unnormalised_'+ str(k) +'.csv'
+
         result_path = f'{base_path}/Predictions/'
         os.makedirs(result_path, exist_ok=True)
         resultsFile = f'{result_path}result_'+ str(k)  +'.csv'
+
+        result_path_unnormalised = f'{base_path}/Predictions/'
+        os.makedirs(result_path_unnormalised, exist_ok=True)
+        resultsFile_unnormalised = f'{result_path_unnormalised}result_unnormalised_'+ str(k)  +'.csv'
 
         loss_path = f'{base_path}/Predictions/'
         os.makedirs(loss_path, exist_ok=True)
         lossFile = f'{loss_path}loss_'+ str(k)  +'.csv'
 
-        return lossDF, resultsDF, targetDF, targetFile, resultsFile, lossFile
+        return lossDF, resultsDF, targetDF, targetFile, resultsFile, lossFile, result_path_unnormalised, target_path_unnormalised, resultsDF_unnormalised, targetDF_unnormalised, resultsFile_unnormalised, targetFile_unnormalised
         
+#
