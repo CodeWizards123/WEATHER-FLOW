@@ -112,7 +112,7 @@ def process_file(attribute, metric, horizon):
             match = re.search(r'station (\d+) : ([\d.]+)', row_content)
             if match:
                 station_number, score = match.groups()
-                writer.writerow([station_number, score])
+                writer.writerow([str(int(station_number)-1), score])
 
 # Loop through each attribute, metric, and horizon to process files
 for attribute in attributes:
