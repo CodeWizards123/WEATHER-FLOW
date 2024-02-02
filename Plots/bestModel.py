@@ -93,7 +93,7 @@
 #     main()
 
 
-########################
+# ########################
 # import os
 # import pandas as pd
 # import matplotlib.pyplot as plt
@@ -172,7 +172,6 @@
 
 # if __name__ == "__main__":
 #     main()
-
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -181,7 +180,6 @@ from matplotlib.patches import Rectangle
 
 # List of variables and metrics to iterate through
 variables = ["Temperature", "WindSpeed", "Humidity", "Pressure"]
-
 
 def get_metric_for_station(file_path, station_number, metric):
     if os.path.exists(file_path): 
@@ -227,12 +225,19 @@ def generate_maps():
                 x, y = m(longitude, latitude)
                 model_metrics = [(model, get_model_metric(model, selected_variable, selected_metric, horizon, station_number)) for model in models]
                 metrics = [metric for _, metric in model_metrics if metric is not None]
+                max_bar_height = 0  # Track the maximum bar height for this station
+
                 if metrics:
                     average_metric = sum(metrics) / len(metrics)
                     for model_idx, (model, metric) in enumerate(model_metrics):
                         if metric is not None:
                             bar_height = (metric / average_metric) * 100000
                             ax.add_patch(Rectangle((x + model_idx * bar_width - bar_width * len(models) / 2, y), bar_width, bar_height, facecolor=colors[models.index(model)], label=model if index == 0 else ""))
+                            max_bar_height = max(max_bar_height, bar_height)  # Update max bar height if this bar is taller
+
+                # Add station number text after drawing all bars for this station
+                if max_bar_height > 0:  # Ensure there's at least one bar for this station
+                    plt.text(x, y + max_bar_height + 0.02, f"{station_number}", fontsize=10, ha='center')
 
             plt.title(f"{selected_variable} - {selected_metric} for all models ({horizon} horizon)", fontsize=16)
             plt.legend(loc='upper right', fontsize=12)
@@ -244,7 +249,3 @@ def generate_maps():
 
 if __name__ == "__main__":
     generate_maps()
-
-
-
-
