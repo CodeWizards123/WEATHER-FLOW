@@ -79,92 +79,106 @@
 
 
 
-#############################################################################
-# import csv
-# import re
+############################################################################
+import csv
+import re
 
-# # Define the horizons, metrics, and attributes
-# horizons = [24]
-# metrics = ['mae', 'smape', 'rmse', 'mse']
-# attributes = ['WindSpeed', 'Temperature', 'Humidity', 'Pressure']
+# Define the horizons, metrics, and attributes
+horizons = [24]
+metrics = ['mae', 'smape', 'rmse', 'mse'] #
+attributes = ['WindSpeed', 'Temperature', 'Humidity', 'Pressure'] #
 
-# # Base path where the files are located
-# base_path = '/Users/adeebgaibie/Documents/GitHub/WEATHER-FLOW/Metrics/CLCRN/'
+# Base path where the files are located
+base_path = '/Users/adeebgaibie/Documents/GitHub/WEATHER-FLOW/Metrics/CLCRN/'
 
-# # Function to process each file
-# def process_file(attribute, metric, horizon):
-#     # Construct the file path based on attribute, metric, and horizon
-#     path = f'{base_path}{attribute}/{metric}/'
-#     input_filename = f'{path}stationScore_{horizon}.csv'
-#     output_filename = f'{path}metrics_{horizon}h.csv'
+# Function to process each file
+def process_file(attribute, metric, horizon):
+    # Construct the file path based on attribute, metric, and horizon
+    path = f'{base_path}{attribute}/{metric}/'
+    input_filename = f'{path}stationScore_{horizon}.csv'
+    output_filename = f'{path}metrics_{horizon}h.csv'
 
-#     with open(input_filename, 'r') as infile, open(output_filename, 'w', newline='') as outfile:
-#         reader = csv.reader(infile)
-#         writer = csv.writer(outfile)
+    with open(input_filename, 'r') as infile, open(output_filename, 'w', newline='') as outfile:
+        reader = csv.reader(infile)
+        writer = csv.writer(outfile)
 
-#         # Skip the header row
-#         next(reader)
+        # Skip the header row
+        next(reader)
 
-#         for row in reader:
-#             # Assuming each row is a string description
-#             row_content = row[0]
+        for row in reader:
+            # Assuming each row is a string description
 
-#             # Extract station number and score using regex
-#             match = re.search(r'station (\d+) : ([\d.]+)', row_content)
-#             if match:
-#                 station_number, score = match.groups()
-#                 writer.writerow([str(int(station_number)-1), score])
+            # Assuming 'row' is a variable you're iterating over, and 'writer' is a csv.writer object
+            row_content = row[0]
+            print(row_content)
 
-# # Loop through each attribute, metric, and horizon to process files
-# for attribute in attributes:
-#     for metric in metrics:
-#         for horizon in horizons:
-#             process_file(attribute, metric, horizon)
+            # Extract station number and score using regex
+            match = re.search(r'station (\d+) : ([\d.]+(?:e-?\d+)?)', row_content)  # Updated regex to match scientific notation
+            if match:
+                station_number, score = match.groups()
+                
+                # Convert score from scientific notation to float and then format
+                score_float = float(score)  # Convert score to float to handle scientific notation
+                formatted_score = "{:.11f}".format(score_float).rstrip('0').rstrip('.')  # Format float with 11 decimal places, then remove trailing zeros and the decimal point if it's an integer
 
-import os
-import pandas as pd
+                if formatted_score.startswith('0.') or formatted_score == '0':  # Check if formatted score is less than 1
+                    # Ensure the formatted score is displayed with leading zeros after the decimal point
+                    formatted_score = '0' + formatted_score[formatted_score.index('.'):]
 
-# Define your current base path
-base_path = '/Users/adeebgaibie/Documents/GitHub/WEATHER-FLOW/Metrics/GWNResults'
-# Define the target base path for the new structure
-target_base_path = '/Users/adeebgaibie/Documents/GitHub/WEATHER-FLOW/Metrics/GWN'
+                print(formatted_score)
+                writer.writerow([str(int(station_number)-1), formatted_score])
 
-# Variables, metrics, and horizons as per your requirement
-variables = ['Humidity', 'WindSpeed', 'Temperature', 'Pressure']
-metrics = ['MAE.csv', 'SMAPE.csv', 'RMSE.csv', 'MSE.csv']
-horizons = ['3', '6', '9', '12', '24']
 
-# Function to create new directory structure and move files
-def rearrange_files():
-    for variable in variables:
-        for metric in metrics:
-            for horizon in horizons:
-                # Old filename pattern
-                old_filename_pattern = f"{horizon} Hour Forecast/{variable}/{metric}"
-                old_file_path = os.path.join(base_path, old_filename_pattern)
+# Loop through each attribute, metric, and horizon to process files
+for attribute in attributes:
+    for metric in metrics:
+        for horizon in horizons:
+            process_file(attribute, metric, horizon)
 
-                # New filename and path
-                new_directory = os.path.join(target_base_path, variable, metric.split('.')[0])
-                new_filename = f"metrics_{horizon}h.csv"
-                new_file_path = os.path.join(new_directory, new_filename)
+# import os
+# import pandas as pd
 
-                # Create the directory if it doesn't exist
-                os.makedirs(new_directory, exist_ok=True)
+# # Define your current base path
+# base_path = '/Users/adeebgaibie/Documents/GitHub/WEATHER-FLOW/Metrics/GWNResults'
+# # Define the target base path for the new structure
+# target_base_path = '/Users/adeebgaibie/Documents/GitHub/WEATHER-FLOW/Metrics/GWN'
 
-                # Check if the old file exists
-                if os.path.exists(old_file_path):
-                    # Read the CSV file without skipping any rows
-                    df = pd.read_csv(old_file_path)
+# # Variables, metrics, and horizons as per your requirement
+# variables = ['Humidity', 'WindSpeed', 'Temperature', 'Pressure']
+# metrics = ['MAE.csv', 'SMAPE.csv', 'RMSE.csv', 'MSE.csv']
+# horizons = ['3', '6', '9', '12', '24']
 
-                    # Check if DataFrame is not empty and has more than one row (to exclude average row safely)
-                    if not df.empty and len(df) > 1:
-                        df = df[:-1]  # Remove the last row (average)
+# # Function to create new directory structure and move files
+# def rearrange_files():
+#     for variable in variables:
+#         for metric in metrics:
+#             for horizon in horizons:
+#                 # Old filename pattern
+#                 old_filename_pattern = f"{horizon} Hour Forecast/{variable}/{metric}"
+#                 old_file_path = os.path.join(base_path, old_filename_pattern)
 
-                        # Save the modified DataFrame to the new file path without including the header
-                        df.to_csv(new_file_path, index=False, header=False)
-                        print(f"Processed and moved file to: {new_file_path}")
-                else:
-                    print(f"File not found: {old_file_path}, skipping...")
+#                 # New filename and path
+#                 new_directory = os.path.join(target_base_path, variable, metric.split('.')[0])
+#                 new_filename = f"metrics_{horizon}h.csv"
+#                 new_file_path = os.path.join(new_directory, new_filename)
 
-# Execute the function
-rearrange_files()
+#                 # Create the directory if it doesn't exist
+#                 os.makedirs(new_directory, exist_ok=True)
+
+#                 # Check if the old file exists
+#                 if os.path.exists(old_file_path):
+#                     # Read the CSV file without skipping any rows
+#                     df = pd.read_csv(old_file_path)
+
+#                     # Check if DataFrame is not empty and has more than one row (to exclude average row safely)
+#                     if not df.empty and len(df) > 1:
+#                         df = df[:-1]  # Remove the last row (average)
+
+#                         # Save the modified DataFrame to the new file path without including the header
+#                         df.to_csv(new_file_path, index=False, header=False)
+#                         print(f"Processed and moved file to: {new_file_path}")
+#                 else:
+#                     print(f"File not found: {old_file_path}, skipping...")
+
+# # Execute the function
+# rearrange_files()
