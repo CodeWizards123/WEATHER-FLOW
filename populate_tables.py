@@ -35,8 +35,8 @@ def get_metrics_from_file(file_path):
                 for metric in metrics.keys():
                     if metric in line.upper():
                         try:
-                            # Use regular expression to find floating point numbers in the line
-                            metric_value_search = re.search(r'\b\d+\.\d+\b', line)
+                            # Updated regular expression to match floating point numbers and scientific notation
+                            metric_value_search = re.search(r'\b\d+\.\d+([eE][-+]?\d+)?\b', line)
                             if metric_value_search:
                                 metric_value = metric_value_search.group(0)
                                 metrics[metric] = float(metric_value)
@@ -62,7 +62,7 @@ def populate_csv_files(stations, model='TCN', split=0, horizons=[3, 6, 9, 12, 24
     Creates a CSV file named metrics_{horizon}h.csv for each metric, weather attribute, and horizon,
     containing all station numbers and their metric values.
     """
-    weather_attributes = ["WindSpeed"]
+    weather_attributes = ["Pressure"]
     metrics = [' RMSE', ' MSE', ' MAE', ' SMAPE']
     base_path = "Metrics/TCN"
 
@@ -81,14 +81,19 @@ def populate_csv_files(stations, model='TCN', split=0, horizons=[3, 6, 9, 12, 24
                 with open(csv_file_path, 'w', newline='') as csvfile:
                     csv_writer = csv.writer(csvfile)
 
-
                     for index, station in enumerate(stations):
                         metrics_values = get_model_metrics(station, model, split, horizon)
                         metric_value = metrics_values[metric]
-                        # Write the station number (index) and metric value in the CSV
-                        csv_writer.writerow([index, metric_value])
 
-                        print(f"Added station number {index} with {metric} value: {metric_value} to {csv_file_path} for horizon {horizon}h")
+                        # Format the metric value to ensure it's written in standard decimal format
+                        # You can adjust the '.6f' to control the number of decimal places
+                        formatted_metric_value = f"{metric_value:.13f}"
+
+                        # Write the station number (index) and formatted metric value in the CSV
+                        csv_writer.writerow([index, formatted_metric_value])
+
+                        print(f"Added station number {index} with {metric} value: {formatted_metric_value} to {csv_file_path} for horizon {horizon}h")
+
 
 # Example usage with a list of stations
 stations = ['ADDO ELEPHANT PARK', 'ALEXANDERBAAI', 'ALIWAL-NORTH PLAATKOP', 'BARKLY-OOS (CAERLEON)',
