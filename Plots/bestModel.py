@@ -240,7 +240,8 @@ def generate_maps():
                     average_metric = sum(metrics) / len(metrics)
                     for model_idx, (model, metric) in enumerate(model_metrics):
                         if metric is not None:
-                            bar_height = (metric / average_metric) * 100000
+                            # bar_height = ((metric / average_metric)) * 100000
+                            bar_height = ((metric / average_metric)**2.5) * 50000
                             ax.add_patch(Rectangle((x + model_idx * bar_width - bar_width * len(models) / 2, y), bar_width, bar_height, facecolor=colors[models.index(model)], label=model if index == 0 else ""))
                             max_bar_height = max(max_bar_height, bar_height)  # Update max bar height if this bar is taller
 

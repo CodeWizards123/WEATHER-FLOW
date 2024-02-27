@@ -223,7 +223,7 @@ def plot_strong_chains(adj_matrix, config):
 
 def plot(config):
     # Get adjacency matrix for results folder
-    matrix_path = "Results/" + config['modelVis']['default'] + "/" + config['horizonVis']['default'] + " Hour Forecast/Matrices/adjacency_matrix_" + config['splitVis']['default'] + ".csv"
+    matrix_path = "Results/" + config['modelVis']['default'] + "/" + config['horizonVis']['default'] + " Hour Forecast/Matrices_gate/adjacency_matrix_" + config['splitVis']['default'] + ".csv"
     df = pd.read_csv(matrix_path, index_col=0)
     adj_matrix = df.values
     # Normalise matrix 
