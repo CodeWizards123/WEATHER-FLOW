@@ -1,3 +1,66 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import pickle 
+
+# Select attributes to plot
+station_number = 13
+horizon_point = 24
+variable = "Temperature"
+
+
+# Paths to actaul and predction files
+path_to_actuals_agcrn = './Predictions_Actuals/AGCRN/'+variable+'/targets_unnormalised_0.npy'
+path_to_agcrn_predictions = './Predictions_Actuals/AGCRN/'+variable+'/output_unnormaliseds_0.npy'
+path_to_clcrn_predictions = './Predictions_Actuals/CLCRN/'+variable+'/predictions.pkl'
+
+# Load Files
+actual_values_agcrn = np.load(path_to_actuals_agcrn)
+agcrn_predictions = np.load(path_to_agcrn_predictions)
+
+with open(path_to_clcrn_predictions, 'rb') as f:
+    clcrn_predictions = pickle.load(f)
+
+
+# Extracting selected values to plot
+actual_values_agcrn = actual_values_agcrn[:, horizon_point-1, station_number, 0]
+agcrn_predictions = agcrn_predictions[:, horizon_point-1, station_number, 0]
+
+clcrn_predictions = clcrn_predictions['y_preds'][len(clcrn_predictions['y_preds'])-len(actual_values_agcrn):]
+clcrn_predictions = clcrn_predictions[:, horizon_point-1, station_number, 0]
+
+# Generate hourly time array starting from Jan 1st 00:00 for AGCRN and CLCRN
+time_agcrn_clcrn = pd.date_range(start='2023-01-01 00:00', periods=len(actual_values_agcrn), freq='H')
+
+plt.figure(figsize=(12, 7))
+
+# Choose design of each line in the plot
+plt.plot(time_agcrn_clcrn, clcrn_predictions, label='CLCRN Predictions', linestyle='-', marker='x', markersize=2, color='blue', linewidth=2)
+plt.plot(time_agcrn_clcrn, agcrn_predictions, label='AGCRN Predictions', linestyle='-', marker='x', markersize=2, color='red')
+plt.plot(time_agcrn_clcrn, actual_values_agcrn, label='Actual Values', linestyle='-', color='grey')
+
+plt.title('AGCRN and CLCRN Actual vs Predicted Temperature Values')
+plt.xlabel('Time')
+plt.ylabel('Temperature')
+plt.legend()
+plt.xticks(rotation=45)
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+#old versions:
+
 # import numpy as np
 # import matplotlib.pyplot as plt
 # import pandas as pd
@@ -256,56 +319,3 @@
 
 
 ##################################
-
-
-
-
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-import pickle  # For loading the CLCRN predictions
-
-# Load the actual values and AGCRN predictions
-path_to_actuals_agcrn = '/Users/adeebgaibie/Documents/GitHub/WEATHER-FLOW/Predictions_Actuals/AGCRN/Temperature/targets_unnormalised_0.npy'
-path_to_agcrn_predictions = '/Users/adeebgaibie/Documents/GitHub/WEATHER-FLOW/Predictions_Actuals/AGCRN/Temperature/output_unnormaliseds_0.npy'
-
-actual_values_agcrn = np.load(path_to_actuals_agcrn)
-agcrn_predictions = np.load(path_to_agcrn_predictions)
-
-# Extract the first element from the 2nd and 3rd dimensions for AGCRN predictions
-actual_values_agcrn = actual_values_agcrn[:, 0, 13, 0]
-agcrn_predictions = agcrn_predictions[:, 0, 13, 0]
-
-# Load the CLCRN predictions
-path_to_clcrn_predictions = '/Users/adeebgaibie/Documents/GitHub/WEATHER-FLOW/Predictions_Actuals/CLCRN/Temperature/predictions.pkl'
-with open(path_to_clcrn_predictions, 'rb') as f:
-    clcrn_predictions = pickle.load(f)
-
-# Assuming the CLCRN predictions are structured similarly, extract the relevant values
-clcrn_predictions = clcrn_predictions['y_preds'][:len(actual_values_agcrn)]
-clcrn_predictions = clcrn_predictions[:, 0, 13, 0]  # Adjust this line if necessary
-
-# Generate hourly time array starting from Jan 1st 00:00 for AGCRN and CLCRN
-time_agcrn_clcrn = pd.date_range(start='2023-01-01 00:00', periods=len(actual_values_agcrn), freq='H')
-
-plt.figure(figsize=(12, 7))
-
-# Actual Values with solid line and thicker width, no transparency needed
-
-
-# CLCRN Predictions with dotted line and markers
-plt.plot(time_agcrn_clcrn, clcrn_predictions, label='CLCRN Predictions', linestyle='-', marker='x', markersize=2, color='blue', linewidth=2)
-
-# AGCRN Predictions with dashed line and markers
-plt.plot(time_agcrn_clcrn, agcrn_predictions, label='AGCRN Predictions', linestyle='-', marker='x', markersize=2, color='red')
-
-plt.plot(time_agcrn_clcrn, actual_values_agcrn, label='Actual Values', linestyle='-', color='grey')
-
-plt.title('AGCRN and CLCRN Actual vs Predicted Temperature Values')
-plt.xlabel('Time')
-plt.ylabel('Temperature')
-plt.legend()
-plt.xticks(rotation=45)
-plt.grid(True)
-plt.tight_layout()
-plt.show()
