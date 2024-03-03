@@ -46,6 +46,8 @@ def plot_map(adj_matrix, config):
 
     # Setup plot
     fig, ax = plt.subplots(figsize=(8, 8), dpi=600)
+    title = config['modelVis']['default']
+    ax.set_title(title)
     
     # Calculate bounding box
     lons = [pos[0] for pos in node_positions.values()]
@@ -110,6 +112,9 @@ def plot_heatmap(adj_matrix, config):
     fig_heatmap, ax_heatmap = plt.subplots()
     sns.heatmap(adj_matrix, cmap='YlGnBu', ax=ax_heatmap)
 
+    title = config['modelVis']['default']
+    ax_heatmap.set_title(title)
+
     split = config['splitVis']['default']
     directory = 'Visualisations/' + config['modelVis']['default']+ '/horizon_' + config['horizonVis']['default'] + '/' + 'heatmap/'
     filename = 'heatmap_split_' + split + '.png'
@@ -159,6 +164,8 @@ def plot_strong_chains(adj_matrix, config):
         strong_nodes.update(path)
     
     fig, ax = plt.subplots(figsize=(8, 8), dpi=600)
+    title = config['modelVis']['default']
+    ax.set_title(title)
 
     node_positions = nx.get_node_attributes(G, 'pos')
     min_lon = min(pos[0] for pos in node_positions.values())
@@ -201,7 +208,7 @@ def plot_strong_chains(adj_matrix, config):
     for path in strong_paths:
         for i in range(len(path) - 1):
             edge_color = colormap(norm(edge_weights[(path[i], path[i + 1])]))
-            nx.draw_networkx_edges(G, pos, edgelist=[(path[i], path[i + 1])], edge_color=edge_color, width=2, arrows=True, arrowstyle='->', ax=ax)
+            nx.draw_networkx_edges(G, pos, edgelist=[(path[i], path[i + 1])], edge_color=edge_color, width=1, arrows=True, arrowstyle='->', ax=ax)
 
     sm = ScalarMappable(cmap=colormap, norm=norm)
     sm.set_array([])
